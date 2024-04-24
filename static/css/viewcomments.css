@@ -1,0 +1,62 @@
+body {
+      background-color: #f0f6ff; /* Serene blue background */
+    }
+    /* Add custom styles here */
+    .footer {
+      background-color: #ff; /* Dark background for the footer */
+      color: white;
+      padding: 10px;
+      margin-top: 300px;
+      height: 10px;
+      margin-bottom: 6;
+      w
+    }
+    .nav-link.active {
+      font-weight: bold;
+    }
+    footer {
+      color: darkpurple;
+      margin-top: 900px
+    }
+
+    footer a {
+      color: darkpurple;
+      text-decoration: none; /* Removes underline from links */
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer span {
+      margin-right: 80px;
+    }
+
+    footer {
+      text-align: center; /* Center-align the content */
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    footer span {
+      margin-bottom: 10px; /* Add spacing between the copyright text and navigation */
+    }
+
+    footer a {
+      margin: 0 10px; /* Add spacing between navigation links */
+    }
+
+    @media screen and (max-width: 600px) {
+      .footer-content {
+        flex-direction: column;
+      }
+
+      footer a {
+        margin: 5px 0; /* Adjust spacing for smaller screens */
+      }
+    }
