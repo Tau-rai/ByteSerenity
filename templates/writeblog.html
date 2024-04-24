@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a Blog Post</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest/dist/editorjs.min.css">
+  <link rel="stylesheet" href="../css/writeblog.css">
+  
+</head>
+<body>
+  <div class="header">   
+
+    
+  </div>
+
+  <div class="container">
+    <h1>Create a Blog Post</h1>
+    <form id="blogPostForm">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+
+      <label for="author">Author Name:</label>
+      <input type="text" id="author" name="author" required>
+
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">Select a category</option>
+        <option value="Technology">Technology</option>
+        <option value="Travel">Travel</option>
+        <option value="Food">Food</option>
+        <option value="Fashion">Fashion</option>
+        <option value="other">Other</option>
+        
+      </select>
+      <input type="text" id="otherCategory" name="otherCategory" placeholder="Enter your own category" style="display: none;">
+
+      <label for="content">Content:</label>
+      <div id="editorjs" class="content-editor"></div>
+
+      <label for="image">Featured Image:</label>
+      <input type="file" id="image" name="image">
+
+       <div class="button-container">
+        <button type="button" class="draft-button">Save as Draft</button>
+        <button type="submit" class="publish-button">Publish</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    
+    <div class="footer">
+       <div>&copy; 2024</div>
+      <a href="#">Home</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </footer>
+</body>
+</html>
