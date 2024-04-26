@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
-@bp.route('/register', methods=('GET', 'POST'))
+@bp.route('/signup', methods=('GET', 'POST'))
 def register():
     """Registers a new user"""
     if request.method == 'POST':
@@ -39,7 +39,7 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return render_template('auth/signup.html')
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():

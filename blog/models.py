@@ -1,7 +1,10 @@
+"""This module defines the models for the application"""
 from .dbase import db
 from sqlalchemy.sql import func
 
+
 class User(db.Model):
+    """Defines the user class"""
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +25,7 @@ class User(db.Model):
 
 
 class Post(db.Model):
+    """Defines the posts class"""
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -40,6 +44,7 @@ class Post(db.Model):
         return f'<Post {self.title}>'
 
 class Comment(db.Model):
+    """Defines the comments class"""
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -52,6 +57,7 @@ class Comment(db.Model):
         return f'<Comment {self.id}>'
 
 class Tag(db.Model):
+    """Defines the tags class"""
     __tablename__ = 'tags'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -61,6 +67,7 @@ class Tag(db.Model):
         return f'<Tag {self.name}>'
 
 class PostTag(db.Model):
+    """Defines relationship between posts and tags"""
     __tablename__ = 'post_tags'
 
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id', ondelete='CASCADE'), primary_key=True)

@@ -1,23 +1,48 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ByteSerenity</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap">
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/footer.css">
+</head>
+<body>
+  <header>
+    <span class="back-arrow" onclick="window.history.back()">&#8592;</span>
+  </header>
+  <div class="container">
+    <h2>Welcome back to Byte Serenity</h2>
+    <form id="loginForm"  onsubmit="return validateForm()">>
+      <div class="form-group">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+   
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+     </div>
+     
+     <div class="forgot-password-container">
+        <a href="forgot_password.html" class="forgot-password">Forgot Password?</a>
+       
+     </div>
 
-{% block header %}
-    <h1 class="text-4xl font-bold text-center my-6">{% block title %}Log In{% endblock %}</h1>
-{% endblock %}
-
-{% block content %}
-    <div class="max-w-sm mx-auto p-6 bg-white rounded shadow-md">
-        <form method="post" class="space-y-6">
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input name="email" id="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
-            </div>
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" name="password" id="password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
-            </div>
-            <div>
-                <input type="submit" value="Log In" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer" />
-            </div>
-        </form>
-    </div>
-{% endblock %}
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+  </div>
+  <script src="../scripts/login.js"></script>
+</body>
+<footer>
+    <nav>
+      <span>&copy; 2024</span>
+      <a href="index.html">Home</a> 
+      <a href="privacy.html">Privacy</a> 
+      <a href="terms_of_service.html">Terms of Service</a>
+    </nav>
+  </footer>
+</html>
