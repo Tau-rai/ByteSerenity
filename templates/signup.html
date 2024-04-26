@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/signup.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap">
+</head>
+<body>
+  <header>
+    <span class="back-arrow" onclick="window.history.back()">&#8592;</span>
+  </header>
+  <div class="container">
+    
+   <form id="signupForm" onsubmit="return validateForm()">
+    
+       <div class="form-group">
+        <label for="name">Username:</label>
+        <input type="text" id="Username" name="Username" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">*Email:</label>
+        <input type="text" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">*Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">*Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+      </div>
+      <div class="form-group">
+      <input type="checkbox" id="terms" name="terms" required>
+      <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms and Conditions</a></label>
+    </div>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+  <footer>
+    <nav>
+      <span>&copy; 2024</span>
+      <a href="#">Home</a> 
+      <a href="#">Privacy</a> 
+      <a href="#">Terms of Service</a>
+    </nav>
+  </footer>
+  <script src="../js/signup.js"></script>
+</body>
+</html>
+

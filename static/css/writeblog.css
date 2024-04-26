@@ -1,0 +1,136 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5DC;
+}
+
+.header {
+  background-image: url('../images/background5.jpg');
+  background-size: cover;
+  padding: 10px;
+  color: #fff;
+  margin-top: 10px;
+  height: 2vh;
+}
+
+.container {
+  background-color: #F5F5DC; 
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  text-align: left;
+  margin: 20px ;
+  margin-top: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+
+.content-editor {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 180px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  
+}
+label, input, select {
+  display: block;
+  margin-bottom: 10px;
+}
+.button-container {
+  display: flex;
+  margin-top: 20px;
+  position: relative;
+  
+  
+}
+
+.button-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.button-container button[type="submit"] {
+  background-color: #007bff; 
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.button-container button[type="submit"]:hover {
+  background-color: #0056b3; 
+}
+
+.button-container button[type="button"] {
+  background-color: #dc3545; 
+  color: #fff; 
+  border: none;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.button-container button[type="button"]:hover {
+  background-color: #c82333;
+    margin-right: 10px;
+    
+}
+
+
+.footer {
+  background-image: url('../images/background5.jpg');
+  background-size: cover;
+  padding: 10px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 600px;
+  margin-bottom: 6;
+  
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 5px 0px;
+}
+
+
+footer span {
+      margin-right: 80px;
+    }
+
+  
+.navbar-brand {
+    color: #fff;
+    font-size: 24px;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-nav {
+    margin-top: 10px;
+}
+
+  
+  
+@media screen and (max-width: 600px) {
+      .footer-content {
+        flex-direction: column;
+      }
+@media screen and (max-width: 600px) {
+      .container {
+        flex-direction: column;
+      }
+
+
+
+  
