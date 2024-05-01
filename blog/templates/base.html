@@ -1,89 +1,82 @@
-<!doctype html>
-<html lang="en" class="flex flex-col min-h-screen">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}GeekZen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}ByteSerenity{% endblock %}</title>
+    <!-- Bootstrap libraries -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/dark.css') }}"> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Custom styles -->
+    <!-- <script src="{{ url_for('static', filename='scripts/auth.js') }}"></script> -->
+    <style>
+        .navbar-inverse {
+            background-color: #333;
+            color: #fff;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 20px 0;
+        }
+    </style>
 </head>
-<body class="flex flex-col flex-1 pt-16">
-    <!-- Add a Dark Mode Toggle Button -->
-    <!-- <button id="dark-mode-toggle" class="p-4">Toggle Dark Mode</button> -->
-    <nav class="bg-white shadow-md fixed w-full top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="{{ url_for('blog.index') }}" class="text-xl font-semibold text-gray-700">GeekZen</a>
-            <ul class="flex items-center">
-                {% if g.user %}
-                    <li class="ml-6">
-                        <a class="text-gray-700" href="{{ url_for('blog.create') }}">Write</a>
-                    </li>
-                    <li class="ml-6">
-                        <a href="{{ url_for('blog.profile') }}" class="text-gray-700">
-                            <span>{{ g.user['username'] }}</span>
-                        </a>
-                    </li>
-                    <li class="ml-6">
-                        <a href="{{ url_for('auth.logout') }}" class="text-gray-700 hover:text-gray-600">Logout</a>
-                    </li>
-                    <li class="ml-6">
-                        <form action="{{ url_for('blog.search') }}" method="get" class="flex">
-                            <input type="text" name="q" placeholder="Search posts..." class="rounded border-gray-300">
-                            <button type="submit" class="bg-blue-500 text-white rounded ml-2 px-4 py-2">Search</button>
-                        </form>
-                    </li>
-                {% else %}
-                    <li class="ml-6">
-                        <a href="{{ url_for('auth.register') }}" class="text-gray-700 hover:text-gray-600">Sign Up</a>
-                    </li>
-                    <li class="ml-6">
-                        <a href="{{ url_for('auth.login') }}" class="text-gray-700 hover:text-gray-600">Log In</a>
-                    </li>
-                    <li class="ml-6">
-                        <form action="{{ url_for('blog.search') }}" method="get" class="flex">
-                            <input type="text" name="q" placeholder="Search posts..." class="rounded border-gray-300">
-                            <button type="submit" class="bg-blue-500 text-white rounded ml-2 px-4 py-2">Search</button>
-                        </form>
-                    </li>
-                {% endif %}
+<body style="padding-bottom: 70px;">
+
+<!-- Navigation menu -->
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- Toggle button for collapsed navigation menu -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Site brand -->
+            <a class="navbar-brand" href="{{ url_for('blog.index') }}"> ByteSerenity </a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default custom-submit" id="submitButton">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li><a href="{{ url_for('blog.create') }}">Blog</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
         </div>
-    </nav>
-    <section class="container mx-auto px-6 py-8">
-        <header>
-            {% block header %}{% endblock %}
-        </header>
-        {% for message in get_flashed_messages() %}
-            <div class="flash bg-green-300 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                {{ message }}
+    </div>
+</nav>
+
+<div class="container">
+    {% block header %}{% endblock %}
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Design 5: Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <span>&copy; ByteSerenity 2024</span>
             </div>
-        {% endfor %}
-        {% block content %}{% endblock %}
-    </section>
-    <footer class="bg-white shadow-md mt-auto">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <p class="text-gray-700">© Changamire 2024</p>
-            <ul class="flex items-center">
-                <li>
-                    <a href="{{ url_for('blog.index') }}" class="text-gray-700 hover:text-gray-600 mr-4">Home</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('blog.privacy') }}" class="text-gray-700 hover:text-gray-600 mr-4">Privacy</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('blog.terms_of_service') }}" class="text-gray-700 hover:text-gray-600">Terms of Service</a>
-                </li>
-            </ul>
+            <div class="col-sm-6 text-right">
+                <a href="{{ url_for('blog.index') }}">Home</a>
+                <a href="{{ url_for('blog.privacy') }}">Privacy</a>
+                <a href="{{ url_for('blog.terms_of_service') }}">Terms of Service</a>
+            </div>
         </div>
-    </footer>
-    <!-- <script>
-        $(document).ready(function() {
-            $('#dark-mode-toggle').click(function() {
-                var theme = $('html').attr('data-theme') === 'light' ? 'dark' : 'light';
-                $('html').attr('data-theme', theme);
-            });
-        });
-    </script> -->
+    </div>
+</footer>
+
+<!-- <script src="/static/scripts/landing.js"></script> -->
 </body>
 </html>

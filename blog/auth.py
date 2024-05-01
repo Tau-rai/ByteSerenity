@@ -1,18 +1,22 @@
-from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
-from werkzeug.security import check_password_hash, generate_password_hash
-from .models import User
+"""This modules has the authorization routes and methods"""
 import functools
-from . import db  
+from .dbase import db
+from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
+from .models import User
+from werkzeug.security import check_password_hash, generate_password_hash
+
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@bp.route('/register', methods=('GET', 'POST'))
-def register():
+
+@bp.route('/signup', methods=('GET', 'POST'))
+def signup():
     """Registers a new user"""
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
+        confirm_password = request.form['confirm_password']
         error = None
 
         if not username:
@@ -21,6 +25,8 @@ def register():
             error = 'Email is required.'
         elif not password:
             error = 'Password is required.'
+        elif password != confirm_password:
+            error = 'Passwords do not match.'
 
         if error is None:
             # Check if the username or email already exists
@@ -36,7 +42,8 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return render_template('auth/signup.html')
+
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():

@@ -1,43 +1,85 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <div class="p-4 bg-cover text-white" style="background-image: url('../static/styles/images/20230902.jpg'); height: 50vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-        <h1 class="text-4xl font-bold">Welcome to GeekZen!</h1>
+    <div class="p-4 bg-cover text-white" style="background-image: url('../static/styles/images/background6.jpg'); height: 50vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <h1 class="text-4xl font-bold">Welcome to Byte Serenity!</h1>
         <p class="mt-4">Code with Clarity, Live with Zen</p>
     </div>
+    <div class="mb-4"></div> <!-- Add space below the header banner -->
 {% endblock %}
 
 {% block content %}
-    <div class="p-4">
-        <h1 class="text-4xl font-bold text-center my-6">{% block title %}Latest Posts{% endblock %}</h1>
-        {% for post in posts %}
-            <article class="post mb-8 p-6 bg-white rounded-lg shadow-lg relative">
-                <header>
-                    <div class="post-header mb-4">
-                        <h2 class="post-title text-3xl font-semibold">{{ post['title'] }}</h2>
-                        <div class="post-meta text-gray-600">Posted by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
-                    </div>
-                    {% if post['avatar'] %}
-                        <img src="{{ post['avatar'] }}" alt="{{ post['username'] }}" class="author-image">
-                    {% endif %}
-                </header>
-                <div class="post-body mt-4 text-gray-800">
-                    <!-- Display a snippet of the post body -->
-                    <p>{{ post['body'] | truncate(200) }}</p>
-                    <!-- Read More link -->
-                    <a href="{{ url_for('blog.detail', id=post['id']) }}" class="text-blue-500 hover:text-blue-700">Read More</a>
-                </div>
-                {% if g.user['id'] == post['author_id'] %}
-                    <a class="edit-post" href="{{ url_for('blog.update', id=post['id']) }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-gray-500 absolute bottom-4 right-4">
-                            <path fill-rule="evenodd" d="M13.879 3.293a1 1 0 011.414 1.414l-10 10a1 1 0 01-.39.242l-3 1a1 1 0 01-1.252-1.253l1-3a1 1 0 01.243-.39l10-10zM13 3l1 1-10 10-1-1 10-10z" clip-rule="evenodd"/>
-                        </svg>
-                    </a>
-                {% endif %}
-            </article>
-            {% if not loop.last %}
-                <div class="divider my-6"></div>
-            {% endif %}
-        {% endfor %}
+<!-- New section for categories -->
+<div class="container mx-auto">
+    <h2 class="text-center mb-4 display-4">Categories</h2>
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 px-2">
+            <div class="p-4 bg-light rounded">
+                <h3 class="display-5">Wellness</h3>
+                <img src="../static/styles/images/health.jpg" alt="Health & Wellness" class="img-fluid">
+                <a href="{{ url_for('blog.tag', tag_name='health') }}" class="btn btn-primary btn-block mt-2">Explore</a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 px-2">
+            <div class="p-4 bg-light rounded">
+                <h3 class="display-5">Worklife Balance</h3>
+                <img src="../static/styles/images/work-life.webp" alt="Worklife Balance" class="img-fluid">
+                <a href="{{ url_for('blog.tag', tag_name='worklife') }}" class="btn btn-primary btn-block mt-2">Explore</a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 px-2">
+            <div class="p-4 bg-light rounded">
+                <h3 class="display-5">Burnout</h3>
+                <img src="../static/styles/images/burnout.jpg" alt="Burnout" class="img-fluid">
+                <a href="{{ url_for('blog.tag', tag_name='burnout') }}" class="btn btn-primary btn-block mt-2">Explore</a>
+            </div>
+        </div>
+        <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 px-2">
+            <div class="p-4 bg-light rounded">
+                <h3 class="display-5">Mental Health</h3>
+                <img src="../static/styles/images/mental.jpg" alt="Burnout" class="img-fluid">
+                <a href="{{ url_for('blog.tag', tag_name='Mental Health') }}" class="btn btn-primary btn-block mt-2">Explore</a>
+            </div>
+        </div> -->
     </div>
+</div>
+
+<div class="p-4">
+    <h1 class="display-4 font-weight-bold text-center my-6">{% block title %}Latest Posts{% endblock %}</h1>
+    {% for post in posts %}
+        <article class="post mb-8 p-6 bg-white rounded shadow-lg">
+            <div class="row">
+                <!-- {% if post['image'] %}
+                    <div class="col-12 col-md-4">
+                        <img src="{{ url_for('static', filename=post.image) }}" alt="Post Image" class="img-fluid rounded">
+                    </div>
+                {% endif %} -->
+                <div class="col">
+                    <header>
+                        <div class="post-header mb-4">
+                            <h2 class="display-5 font-weight-bold">{{ post['title'] }}</h2>
+                            <div class="post-meta text-muted">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+                        </div>
+                    </header>
+                    <div class="post-body mt-4 text-dark">
+                        <!-- Display a snippet of the post body -->
+                        <p>{{ post['body'] | truncate(200) }}</p>
+                        <!-- Read More link -->
+                        <a href="{{ url_for('blog.post_detail', id=post['id']) }}" class="text-primary">Read More</a>
+                    </div>
+                    {% if g.user['id'] == post['author_id'] %}
+                        <a class="edit-post" href="{{ url_for('blog.update', id=post['id']) }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-gray-500 position-absolute bottom-4 right-4">
+                                <path fill-rule="evenodd" d="M13.879 3.293a1 1 0 011.414 1.414l-10 10a1 1 0 01-.39.242l-3 1a1 1 0 01-1.252-1.253l1-3a1 1 0 01.243-.39l10-10zM13 3l1 1-10 10-1-1 10-10z" clip-rule="evenodd"/>
+                            </svg>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </article>
+        <!-- {% if not loop.last %}
+            <hr class="my-6">
+        {% endif %} -->
+    {% endfor %}
+</div>
 {% endblock %}

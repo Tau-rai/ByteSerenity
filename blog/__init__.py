@@ -1,16 +1,17 @@
+"""This module defines the database conection and creates the app"""
+import click
 import os
 from flask import Flask, g
 from flask.cli import with_appcontext
 from markupsafe import Markup
 from .dbase import db
+from .models import Comment, PostTag, Tag, User
 import secrets
-import click
-from .models import User, Comment, Tag, PostTag
 
 # Database credentials
-database = os.environ.get('dbase')
-dbuser = os.environ.get('dbuser')
-pasword = os.environ.get('pasword')
+DB_NAME = os.environ.get('DB_NAME')
+DB_USER = os.environ.get('DB_USER')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
 
 # Custom Jinja filter for converting newline characters to HTML <br> tags
 def nl2br(value):
@@ -46,9 +47,9 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY=secrets.token_hex(16),
-        SQLALCHEMY_DATABASE_URI=f'mysql+mysqlconnector://{dbuser}:{pasword}@localhost/{database}',
+        SQLALCHEMY_DATABASE_URI=f'mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@localhost/{DB_NAME}',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        # UPLOAD_FOLDER='/home/tau_rai/BSerenity/byte/static/public'  # Set the upload folder path
+        # UPLOAD_FOLDER='/home/tau_rai/ByteSerenity/blog/static/public'  # Set the upload folder path
     )
 
     if test_config is None:
