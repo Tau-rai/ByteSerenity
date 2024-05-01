@@ -28,7 +28,7 @@ def index():
         .order_by(Post.created.desc())
         .all()
     )
-    return render_template('blog/index.html', posts=posts)
+    return render_template('index.html', posts=posts)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -91,10 +91,10 @@ def create():
 
             if action == 'Publish':
                 return redirect(url_for('blog.index'))
-            # else:
-                # return redirect(url_for('blog.profile'))
+            else:
+                return redirect(url_for('blog.profile'))
 
-    return render_template('blog/writeblog.html')
+    return render_template('writeblog.html')
 
 @bp.route('/<int:id>/post_detail', methods=('GET',))
 def post_detail(id):
@@ -102,7 +102,7 @@ def post_detail(id):
     post = Post.query.get(id)
     comments = Comment.query.filter_by(post_id=id).all()
     tags = [tag.name for tag in post.tags]
-    return render_template('blog/viewpost.html', post=post, comments=comments, tags=tags)
+    return render_template('viewblog.html', post=post, comments=comments, tags=tags)
 
 @bp.route('/search')
 def search():
@@ -130,7 +130,7 @@ def search():
             .order_by(Post.created.desc())
             .all()
         )
-        return render_template('blog/search.html', posts=posts)
+        return render_template('search.html', posts=posts)
 
 @login_required
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
@@ -160,7 +160,7 @@ def update(id):
             db.session.commit()
             return redirect(url_for('blog.index'))
 
-    return render_template('blog/update.html', post=post)
+    return render_template('update.html', post=post)
 
 @bp.route('/tags/<tag_name>')
 def tag(tag_name):
@@ -172,7 +172,7 @@ def tag(tag_name):
         .filter(Tag.name == tag_name)
         .all()
     )
-    return render_template('blog/tag.html', posts=posts, tag_name=tag_name)
+    return render_template('tag.html', posts=posts, tag_name=tag_name)
 
 @login_required
 @bp.route('/<int:id>/delete', methods=('POST',))
@@ -210,17 +210,17 @@ def comment(id):
 
             return redirect(url_for('blog.detail', id=id))
         
-    return render_template('blog/comment.html')
+    return render_template('viewcomments.html')
 
 @bp.route('/privacy-policy')
 def privacy():
     """Shows site privacy policy"""
-    return render_template('blog/privacy.html')
+    return render_template('privacy.html')
 
 @bp.route('/terms-of-service')
 def terms_of_service():
     """Shows site terms of service"""
-    return render_template('blog/terms_of_service.html')
+    return render_template('terms_of_service.html')
 
 # Regular expression for validating an Email
 email_regex = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
@@ -265,4 +265,4 @@ def profile():
                     db.session.rollback()
                     flash('An error occurred while updating the profile.')
 
-    return render_template('blog/profile.html', user=user, posts=posts, drafts=drafts)
+    return render_template('profile.html', user=user, posts=posts, drafts=drafts)

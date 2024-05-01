@@ -42,7 +42,7 @@ def signup():
 
         flash(error)
 
-    return render_template('auth/signup.html')
+    return render_template('signup.html')
 
 
 @bp.route('/login', methods=('GET', 'POST'))
@@ -68,7 +68,7 @@ def login():
 
         flash(error)
 
-    return render_template('auth/login.html')
+    return render_template('login.html')
 
 @bp.before_app_request
 def load_logged_in_user():

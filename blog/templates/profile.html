@@ -7,7 +7,7 @@
     <div class="message">
       Welcome to your ByteSerenity profile!
     </div>
-    <form id="profileForm" action="{{ url_for('update_profile') }}" method="post">
+    <form id="profileForm" action="{{ url_for('blog.profile') }}" method="post">
       <div class="form-group">
         <label for="fullName">Full Name:</label>
         <input type="text" id="fullName" name="fullName" required>

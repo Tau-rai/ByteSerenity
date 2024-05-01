@@ -21,7 +21,7 @@ class User(db.Model):
     comments = db.relationship('Comment', backref='author', lazy=True)
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'{self.username}'
 
 
 class Post(db.Model):
@@ -41,7 +41,7 @@ class Post(db.Model):
     tags = db.relationship('Tag', secondary='post_tags', backref=db.backref('posts', lazy=True))
 
     def __repr__(self):
-        return f'<Post {self.title}>'
+        return f'{self.title}'
 
 class Comment(db.Model):
     """Defines the comments class"""
@@ -64,7 +64,7 @@ class Tag(db.Model):
     name = db.Column(db.String(256), unique=True, nullable=False)
 
     def __repr__(self):
-        return f'<Tag {self.name}>'
+        return f'{self.name}'
 
 class PostTag(db.Model):
     """Defines relationship between posts and tags"""

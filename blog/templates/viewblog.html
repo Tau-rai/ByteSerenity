@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}View Blog - ByteSerenity{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <img src="{{ url_for('static', filename=post.image) }}" class="card-img-top" alt="Blog Cover">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.body }}</p>
+                <p class="card-text"><small class="text-muted">Category: {{ post.tag }}</small></p>
+                <p class="card-text"><small class="text-muted">Author: {{ post.author }}</small></p>
+                <p class="card-text"><small class="text-muted">Published on: {{ post.created }}</small></p>
+                <!-- Add comments section here if applicable -->
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
