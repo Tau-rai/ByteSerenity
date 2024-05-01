@@ -1,41 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View Post</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/footer.css">
-  <link rel="stylesheet" href="../css/viewcomments.css">
-</head>
-<body>
-  <div class="container mt-5">
-    <div class="card">
-      
-        <hr>
-        <h5>Comments</h5>
-        <div class="comments">
-          <!-- Comment item template -->
-          <div class="comment">
-            <p><strong>User Name</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p><small class="text-muted">Posted on: January 2, 2024</small></p>
-            <hr>
-          </div>
-          <!-- End of comment item template -->
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <footer>
-    <nav>
-      <span>&copy; 2024</span>
-      <a href="#">Home</a>
-      <a href="#">Privacy</a> 
-      <a href="#">Terms of Service</a>
-    </nav>
-  </footer>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}View Blog - ByteSerenity{% endblock %}
 
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <img src="{{ blog.featured_image }}" class="card-img-top" alt="Blog Cover">
+            <div class="card-body">
+                <h5 class="card-title">{{ blog.title }}</h5>
+                <p class="card-text">{{ blog.content }}</p>
+                <p class="card-text"><small class="text-muted">Category: {{ blog.category }}</small></p>
+                <p class="card-text"><small class="text-muted">Author: {{ blog.author }}</small></p>
+                <p class="card-text"><small class="text-muted">Published on: {{ blog.published_date }}</small></p>
+                <!-- Like and Dislike Buttons -->
+                <button id="likeBtn" class="btn btn-primary">Like</button>
+                <button id="dislikeBtn" class="btn btn-danger">Dislike</button>
+                <!-- Comment Form -->
+                <form id="commentForm" action="{{ url_for('submit_comment') }}" method="post">
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea id="comment" name="comment" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <!-- Display Comments -->
+                <div id="comments">
+                    <!-- Comments will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

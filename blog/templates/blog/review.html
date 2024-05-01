@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}View Blog - ByteSerenity{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text"><small class="text-muted">Category: {{ post.category }}</small></p>
+            <p class="card-text"><small class="text-muted">Author: {{ post.author }}</small></p>
+            <p class="card-text"><small class="text-muted">Published on: {{ post.published_date }}</small></p>
+             <p class="card-text"><small class="text-muted"> {{ post.minutes }} min read</small></p>
+            <!-- Comments section (if applicable) -->
+            {% if post.comments %}
+            <hr>
+            <h6>Comments</h6>
+            <ul class="list-group">
+                {% for comment in post.comments %}
+                <li class="list-group-item">{{ comment.content }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <!-- End of comments section -->
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary">Edit</a>
+                </div>
+                <div class="col text-right">
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ post.id }}')">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

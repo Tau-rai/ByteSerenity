@@ -1,55 +1,46 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Add event listener to the search form
-    document.getElementById("submitButton").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent default form submission behavior
+// Get all the explore buttons
+var exploreButtons = document.querySelectorAll('.category-box .btn-primary');
+
+// Add click event listener to each explore button
+exploreButtons.forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        // Prevent default behavior of the anchor tag
+        event.preventDefault();
         
-        // Get the value from the search input field
-        var searchValue = document.querySelector(".navbar-form .form-control").value;
+        // Get the URL from the href attribute of the anchor tag
+        var url = this.getAttribute('href');
         
-        // Perform search operation (you can replace this with your desired functionality)
-        if (searchValue.trim() !== "") {
-            // If the search value is not empty, redirect to search results page
-            window.location.href = "search-results.html?query=" + encodeURIComponent(searchValue);
-        } else {
-            // If the search value is empty, display an error message
-            alert("Please enter a search query.");
-        }
-    });
-
-    // Add event listener to explore buttons in category boxes
-    var exploreButtons = document.querySelectorAll(".category-box .btn-primary");
-    exploreButtons.forEach(function(button) {
-        button.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            
-            // Get the category title
-            var categoryTitle = this.parentElement.querySelector(".category-title").textContent;
-            
-            // Perform category-specific action (you can replace this with your desired functionality)
-            alert("Exploring " + categoryTitle);
-        });
-    });
-
-    // Add event listener to "Read More" buttons in top stories
-    var readMoreButtons = document.querySelectorAll(".top-story .btn-primary");
-    readMoreButtons.forEach(function(button) {
-        button.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            
-            // Get the story title and URL
-            var storyTitle = this.parentElement.querySelector("h3").textContent;
-            var storyUrl = this.href;
-            
-            // Perform story-specific action (you can replace this with your desired functionality)
-            alert("Reading more about: " + storyTitle + "\nURL: " + storyUrl);
-        });
-    });
-
-    // Add event listener for the welcome message (if you want to trigger some action when it's clicked)
-    var welcomeMessage = document.querySelector(".welcome-message");
-    welcomeMessage.addEventListener("click", function(event) {
-        // Perform action when the welcome message is clicked (you can replace this with your desired functionality)
-        alert("Welcome to ByteSerenity!");
+        // Open the URL in a new tab
+        window.open(url, '_blank');
     });
 });
+
+// Get all the "Read More" buttons
+var readMoreButtons = document.querySelectorAll('.top-story .btn.btn-primary');
+
+// Add click event listener to each "Read More" button
+readMoreButtons.forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        // Prevent default behavior of the anchor tag
+        event.preventDefault();
+        
+        // Get the URL from the href attribute of the anchor tag
+        var url = this.getAttribute('href');
+        
+        // Open the URL in a new tab
+        window.open(url, '_blank');
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Your JavaScript code here
+    var searchForm = document.querySelector('.navbar-form');
+    // Add event listener to the search form
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var searchInput = this.querySelector('input').value;
+        console.log('Searching for:', searchInput);
+    });
+});
+
 
