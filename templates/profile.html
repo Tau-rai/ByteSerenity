@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Blog Profile</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap">
-  <link rel="stylesheet" href="../css/footer.css">
-  <link rel="stylesheet" href="../css/profile.css">
+{% extends 'base.html' %}
+{% block title %}Login - ByteSerenity{% endblock %}
 
+{% block content %}
 
-<body>
-  <header class="header">
-    <button class="back-button" onclick="window.history.back()">
-      <strong>&#9664;</strong> Back
-    </button>
-    <a href="#" class="site-link">ByteSerenity</a>
-  </header>
   <div class="container">
     <div class="message">
       Welcome to your ByteSerenity profile!
     </div>
-    <form id="profileForm">
+    <form id="profileForm" action="{{ url_for('update_profile') }}" method="post">
       <div class="form-group">
         <label for="fullName">Full Name:</label>
         <input type="text" id="fullName" name="fullName" required>
@@ -44,21 +30,11 @@
         <textarea id="bio" name="bio" rows="4"></textarea>
       </div>
       <div class="form-group">
-        <label for="Date of Birth ">Date of Birth:</label>
-        <input type="url" id="Date of Birth" name="Date of birth">
+        <label for="dateOfBirth">Date of Birth:</label>
+        <input type="date" id="dateOfBirth" name="dateOfBirth">
       </div>
       
       <button type="submit">Update Profile</button>
     </form>
   </div>
-  <footer>
-    <nav>
-      <span>&copy; 2024</span>
-      <a href="#">Home</a>
-      <a href="#">Privacy</a> 
-      <a href="#">Terms of Service</a>
-    </nav>
-  </footer>
-</body>
-</html>
-
+{% endblock %}

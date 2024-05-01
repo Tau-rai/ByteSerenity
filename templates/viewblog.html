@@ -1,52 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View Post</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/footer.css">
-  
+{% extends 'base.html' %}
+{% block title %}View Blog - ByteSerenity{% endblock %}
 
-  <style>
-    body {
-      background-color:  #f0f6ff; /* Serene blue background */
-    }
-       
-  </style>
-</head>
-<body>
-  <div class="container mt-5">
-    <div class="card">
-      <img src="https://via.placeholder.com/800x200" class="card-img-top" alt="Blog Cover">
-      <div class="card-body">
-        <h5 class="card-title">Post Title</h5>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit.</p>
-        <p class="card-text"><small class="text-muted">Category: Category 1</small></p>
-        <p class="card-text"><small class="text-muted">Author: John Doe</small></p>
-        <p class="card-text"><small class="text-muted">Published on: January 1, 2024</small></p>
-        <!-- Add comments section here if applicable -->
-        <hr>
-        <div class="row">
-          <div class="col">
-            <button type="button" class="btn btn-primary">Edit</button>
-          </div>
-          <div class="col text-right">
-            <button type="button" class="btn btn-danger">Delete</button>
-          </div>
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <img src="{{ blog.featured_image }}" class="card-img-top" alt="Blog Cover">
+            <div class="card-body">
+                <h5 class="card-title">{{ blog.title }}</h5>
+                <p class="card-text">{{ blog.content }}</p>
+                <p class="card-text"><small class="text-muted">Category: {{ blog.category }}</small></p>
+                <p class="card-text"><small class="text-muted">Author: {{ blog.author }}</small></p>
+                <p class="card-text"><small class="text-muted">Published on: {{ blog.published_date }}</small></p>
+                <!-- Add comments section here if applicable -->
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary" id="editBtn">Edit</button>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  
-  <footer>
-    <nav>
-      <span>&copy; 2024</span>
-      <a href="#">Home</a> 
-      <a href="#">Privacy</a> 
-      <a href="#">Terms of Service</a>
-    </nav>
-  </footer>
-</body>
-</html>
-
+{% endblock %}
