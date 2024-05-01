@@ -109,7 +109,7 @@ def search():
     """Searches for posts or categories"""
     query = request.args.get('q', '').strip()
     if query == '':
-        return render_template('blog/search.html', posts=[])
+        return render_template('search.html', posts=[])
     else:
         posts = (
             db.session.query(
@@ -265,4 +265,4 @@ def profile():
                     db.session.rollback()
                     flash('An error occurred while updating the profile.')
 
-    return render_template('profile.html', user=user, posts=posts, drafts=drafts)
+    return render_template('viewprofile.html', user=user, posts=posts, drafts=drafts)

@@ -7,179 +7,9 @@
     <!-- Bootstrap libraries -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- Custom styles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles/css/index.css') }}">
 </head>
-  <style>
-       .category-image {
-        width: 100%; /* Ensure images take up the full width of their container */
-        height: 200px; /* Set a fixed height for the images */
-        object-fit: cover; /* Ensure the aspect ratio is maintained */
-        border-radius: 10px; /* Add rounded corners */
-        }
-        
-        
-    .welcome-message-bg {
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        height: 50vh; /* Set the height of the welcome message section */
-        position: relative;
-        margin-top 30px;
-    }
-    .welcome-content {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-        padding: 20px; /* Adjust padding as needed */
-    }
-    .welcome-content h1 {
-        font-size: 33px;
-        margin-bottom: 10px;
-        color: white;
-        text-shadow: 4px 4px 8px rgba(0, 0, 0, 4.5); /* Add shadow effect */
-        white-space: nowrap;
-        
-    }
-    .welcome-content p {
-        white-space: nowrap; /* Prevent paragraph text from wrapping */
-        overflow: hidden;
-        text-overflow: ellipsis; /* Add ellipsis for overflow text */
-        color: white;
-        font-size: 18px;
-        font-weight: bold; /* Make the font bold */
-        font-style: italic;
-        text-shadow: 4px 4px 8px rgba(0, 0, 0, 3.5); /* Add shadow effect */
-       
-    }
-
-
-        
-        
-        
-       
-    
-        
-    .column {
-        height: 200px; /* Set a fixed height for the columns */
-        overflow: auto; /* Allow vertical scrolling when content exceeds the height */
-        padding: 10px; /* Add padding for better readability */
-    }
-
-    .column-content {
-        white-space: nowrap; /* Prevent text from wrapping */
-        overflow: hidden; /* Hide overflow content */
-        text-overflow: ellipsis; /* Add ellipsis to overflow text */
-    }
-
-    
-         .navbar-inverse {
-            background-color: #333;
-            color: #fff;
-        }
-        
-        .footer {
-            background-color: #333;
-            color: #fff;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: 20px 0;
-            position: fixed;
-            height: 60px;
-        }
-        
-        :root {
-            --font-family: 'Poppins', sans-serif;
-            --font-size-md: 2.4rem;
-            --navbar-height: 60px;
-            --icon-size: 2.4rem
-        }
-        /* Custom font family for ByteSerenity */
-        .byte-serenity {
-            font-family: var(--font-family);
-            font-size: var(--font-size-md);
-            font-size: rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-left: 30px;
-            margin: 0;
-            
-        }
-        /* Increase the size of the search icon */
-        .ri-search-line {
-            font-size: var(--font-size-sm);
-            margin-right: 0;     
-            height: var(--navbar-height); /* Set the height of the element */
-            line-height: var(--navbar-height); /*
-            
-        }
-        /* Positioning the search icon and bars */
-        .navbar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-     
-  
-      
-        
-       
-       
-        .trending-story-content p {
-            margin-bottom: 10px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2; /* Limit to two lines */
-            -webkit-box-orient: vertical;
-            white-space: nowrap;
-        }
-        
-        .read-more {
-            color: blue;
-            text-decoration: none;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-        }
-        .read-more span {
-            display: inline-block;
-            width: 15px; /* Width of the ellipsis */
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-    
-    
-       
-        
-        .trending-stories-scroll {
-            max-height: 300px; /* Set the maximum height for the scrollable area */
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
-        .trending-story {
-            margin-bottom: 20px; /* Add some space between each trending story */
-        }
-        .trending-story-image {
-            width: 100px; /* Set the width of the story image */
-            height: 100px; /* Set the height of the story image */
-            overflow: hidden; /* Hide any overflow content */
-            border-radius: 50%; /* Apply rounded corners to the image */
-        }
-        .trending-story-image img {
-            width: 100%; /* Ensure the image fills its container */
-            height: auto; /* Preserve aspect ratio */
-        }
-    
-
-        
-
-
-
-    </style>
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container">
@@ -191,7 +21,7 @@
                 <!-- Load an icon library -->
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-                <a class="active" href="#" style="color: white; font-size: 20px;"> <i class="fa fa-fw fa-search" style="color: white; margin-top: 16px; margin-left: 50px;"></i> Search</a>
+                <a  class="active" href="{{ url_for('blog.search') }}" style="color: white; font-size: 20px;"> <i class="fa fa-fw fa-search" style="color: white; margin-top: 16px; margin-left: 50px;"></i> Search</a>
 
                 <!-- Toggle button for collapsed navigation menu -->
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -202,86 +32,19 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                    <li><a href="{{ url_for('index') }}">Blog</a></li>
-                    <li><a href="#">Logout</a></li>
+                    {% if g.user %}
+                    <li><a href="{{ url_for('blog.create') }}">Blog</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    <li><a href="{{ url_for('blog.profile')}}">{{ g.user.username }}</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-
-    <!-- Design: Welcome Message -->
-    <section class="welcome-message">
-        <div class="container">
-            <div class="row">
-                <!-- Welcome Message with Background Picture -->
-                <div class="col-md-9 welcome-message-bg" style="background-image: url('byte.jpg');">
-                    <div class="welcome-content">
-                        <h1>Welcome to ByteSerenity</h1>
-                        <p>Code with Clarity, Live with Zen</p>
-                    </div>
-                </div>
-                <!-- Trending Stories -->
-                <div class="col-md-3 trending-stories">
-                    <div class="trending-stories-inner">
-                        <h2>Trending Stories</h2>
-                        <div class="trending-stories-scroll">
-                            <!-- Dynamic content will be inserted here -->
-                            {% for story in trending_stories %}
-                            <div class="trending-story">
-                                <div class="trending-story-image">
-                                    <img src="{{ story.image }}" alt="{{ story.title }}" class="img-responsive" width="100" height="100">
-                                </div>
-                                <div class="trending-story-content">
-                                    <h3><a href="{{ story.url }}">{{ story.title }}</a></h3>
-                                    <p>{{ story.summary }}</p>
-                                    <a href="{{ story.url }}" class="read-more">Read More <span>...</span></a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Design: Categories -->
-    <section class="categories container">
-        <h2>Categories</h2>
-        <div class="row">
-            <!-- Dynamic content will be inserted here -->
-            {% for category in categories %}
-            <div class="col-md-3">
-                <div class="category-box" style="background-color: {{ category.color }};">
-                    <img src="{{ category.image }}" alt="{{ category.name }} Image" class="category-image">
-                    <h3 class="category-title">{{ category.name }}</h3>
-                    <a href="{{ url_for('category', category_id=category.id) }}" class="btn btn-primary">Explore</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-
-    <!-- Design: Latest Stories -->
-    <section class="latest-stories container">
-        <h2>Latest Stories</h2>
-        <div class="row">
-            <!-- Dynamic content will be inserted here -->
-            {% for story in latest_stories %}
-            <div class="col-md-3">
-                <div class="latest-story">
-                    <img src="{{ story.image }}" alt="{{ story.title }}" class="img-responsive" style="width: 200px; height: 200px;">
-                    <h3>{{ story.title }}</h3>
-                    <p>{{ story.summary }}</p>
-                    <a href="{{ story.url }}" class="btn btn-primary">Read More</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-
+{% block content %}{% endblock %}
     <!-- Design: Footer -->
     <footer class="footer">
         <div class="container">
@@ -290,9 +53,9 @@
                     <span>&copy; ByteSerenity 2024</span>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <a href="{{ url_for('index') }}">Home</a>
-                    <a href="{{ url_for('privacy') }}">Privacy</a>
-                    <a href="{{ url_for('terms_of_service') }}">Terms of Service</a>
+                    <a href="{{ url_for('blog.index') }}">Home</a>
+                    <a href="{{ url_for('blog.privacy') }}">Privacy</a>
+                    <a href="{{ url_for('blog.terms_of_service') }}">Terms of Service</a>
                 </div>
             </div>
         </div>
