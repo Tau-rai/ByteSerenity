@@ -1,48 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ByteSerenity</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap">
-  <link rel="stylesheet" href="../static/styles/css/login.css">
-  <link rel="stylesheet" href="..static/styles/css/footer.css">
-</head>
-<body>
-  <header>
-    <span class="back-arrow" onclick="window.history.back()">&#8592;</span>
-  </header>
-  <div class="container">
-    <h2>Welcome back to Byte Serenity</h2>
-    <form id="loginForm"  onsubmit="return validateForm()">>
-      <div class="form-group">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-   
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-     </div>
-     
-     <div class="forgot-password-container">
-        <a href="forgot_password.html" class="forgot-password">Forgot Password?</a>
-       
-     </div>
+{% extends "base.html" %}
 
-      <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-  </div>
-  <script src="../scripts/login.js"></script>
-</body>
-<footer>
-    <nav>
-      <span>&copy; 2024</span>
-      <a href="index.html">Home</a> 
-      <a href="privacy.html">Privacy</a> 
-      <a href="terms_of_service.html">Terms of Service</a>
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+            <h2>Welcome back to Byte Serenity</h2>
+            <form id="loginForm" method="post">
+                <div class="form-group">
+                    <label for="username">Email:</label>
+                    <input type="email" id="username" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <a href="forgot_password.html" class="forgot-password">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-text">&copy; 2024</span>
+        <a class="nav-link" href="{{ url_for('blog.index') }}">Home</a> 
+        <a class="nav-link" href="{{ url_for('blog.privacy') }}">Privacy</a> 
+        <a class="nav-link" href="{{ url_for('blog.terms_of_service') }}">Terms of Service</a>
     </nav>
-  </footer>
-</html>
+</footer>
+{% endblock %}

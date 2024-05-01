@@ -16,6 +16,7 @@ def signup():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
+        confirm_password = request.form['confirm_password']
         error = None
 
         if not username:
@@ -24,6 +25,8 @@ def signup():
             error = 'Email is required.'
         elif not password:
             error = 'Password is required.'
+        elif password != confirm_password:
+            error = 'Passwords do not match.'
 
         if error is None:
             # Check if the username or email already exists
@@ -40,6 +43,7 @@ def signup():
         flash(error)
 
     return render_template('auth/signup.html')
+
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
