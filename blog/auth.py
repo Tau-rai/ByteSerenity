@@ -1,5 +1,6 @@
 """This modules has the authorization routes and methods"""
 import functools
+import re
 from .dbase import db
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 from .models import User
@@ -19,13 +20,18 @@ def signup():
         confirm_password = request.form['confirm_password']
         error = None
 
+        # Email validation regex
+        email_regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+
         if not username:
             error = 'Username is required.'
         elif not email:
             error = 'Email is required.'
+        elif not re.match(email_regex, email):
+            error = 'Invalid email address.'
         elif not password:
             error = 'Password is required.'
-        elif password != confirm_password:
+        elif password != confirm_password: 
             error = 'Passwords do not match.'
 
         if error is None:
@@ -67,7 +73,7 @@ def login():
             return redirect(url_for('blog.index'))
 
         flash(error)
-
+        
     return render_template('login.html')
 
 @bp.before_app_request

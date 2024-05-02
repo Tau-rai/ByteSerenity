@@ -15,7 +15,7 @@
         <div class="container">
             <div class="navbar-header">
                 <!-- Site icon with Bootstrap styling -->
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ url_for('blog.index') }}">
                     <span class="byte-serenity">ByteSerenity</span>
                 </a>
                 <!-- Load an icon library -->
@@ -44,7 +44,17 @@
             </div>
         </div>
     </nav>
-{% block content %}{% endblock %}
+    <div class="container mx-auto px-3 py-3">
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger rounded border border-success text-success px-3 py-2" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+    </div>    
     <!-- Design: Footer -->
     <footer class="footer">
         <div class="container">
