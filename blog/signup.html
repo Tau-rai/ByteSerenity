@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}Signup - ByteSerenity{% endblock %}
+
+{% block content %}
+<style>
+    /* CSS for form container */
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* CSS for form fields */
+    .form-group {
+        margin-bottom: 20px; /* Add space between fields */
+        text-align: center; /* Center align form elements */
+    }
+
+    .form-group label {
+        display: block; /* Make labels block elements */
+        font-weight: bold; /* Make labels bold */
+        margin-bottom: 15px; /* Add space below labels */
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"],
+    .form-group input[type="email"] {
+        width: 300px; /* Increase width of input fields */
+        padding: 10px; /* Increase padding for better appearance */
+    }
+
+    /* CSS for submit button */
+    button[type="submit"] {
+        width: 100px; /* Set button width */
+        height: 30px; /* Set button height */
+        margin-top: 10px; /* Add margin at the top */
+        background-color: blue; /* Blue background */
+        color: white; /* White text color */
+        border: none; /* Remove button border */
+        border-radius: 5px; /* Apply border radius */
+    }
+
+    
+</style>
+<div class="container">
+    <h2 class="text-left mb-4">Sign Up</h2>
+    <form id="signupForm" action="{{ url_for('auth.signup') }}" method="post" onsubmit="return validateForm()">
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">Username:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-3 col-form-label">Email:</label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-3 col-form-label">Password:</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="confirmPassword" class="col-sm-3 col-form-label">Confirm Password:</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                <label class="form-check-label" for="terms">I agree to the <a href="terms.html" target="_blank">Terms and Conditions</a></label>
+            </div>
+        </div>
+     
+        <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <button type="submit" class="btn btn-primary btn-sm">Signup</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var terms = document.getElementById("terms").checked;
+
+        if (name.trim() == "") {
+            alert("Please enter your username");
+            return false;
+        }
+        if (email.trim() == "") {
+            alert("Please enter your email");
+            return false;
+        }
+        if (password.trim() == "") {
+            alert("Please enter a password");
+            return false;
+        }
+        if (confirmPassword.trim() == "") {
+            alert("Please confirm your password");
+            return false;
+        }
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return false;
+        }
+        if (!terms) {
+            alert("Please agree to the Terms and Conditions");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+{% endblock %}
+
