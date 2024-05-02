@@ -18,7 +18,7 @@ ByteSerenity is a Flask web application primarily catering to the mental health,
 - **Flask**: Flask is a micro web framework for Python used to develop the application.
 - **MySQL**: MySQL is used as the relational database management system.
 - **HTML/CSS/JavaScript**: Standard web technologies are used for front-end development.
-- **TailwindCSS**: Tailwind is used for styling and layout of the application.
+- **Bootstrap**: Bootstrap is used for styling and layout of the application.
 - **Jinja2**: Jinja2 templating engine is used for generating dynamic HTML content.
 - **Werkzeug**: Werkzeug is a WSGI utility library for Python, which is used for routing and handling requests.
 - **Markdown**: Markdown is used for writing README and other documentation files.
@@ -93,3 +93,4 @@ No License.
 ## Authors
 
 - [Taurai Masaire](https://github.com/Tau-rai)
+- [Avumile Ndlovu](https://github.com/Aevy21)
