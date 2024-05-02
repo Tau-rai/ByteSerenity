@@ -32,7 +32,7 @@
                     </div>
                     <div class="center-content">
                         <h2 class="mb-4">Profile Information</h2>
-                        <p><strong>Full Name:</strong> {{ user.full_name }}</p>
+                        <p><strong>Name:</strong> {{ user.name }}</p>
                         <p><strong>Email:</strong> {{ user.email }}</p>
                         <p><strong>Bio:</strong> {{ user.bio }}</p>
                         <p><strong>Interests (optional):</strong></p>
@@ -45,8 +45,6 @@
                     </div>
                 </div>
                 <!-- Column divider -->
-                <div class="col-md-6 column-divider"></div>
-                <!-- Second column: User's published stories -->
                 <div class="col-md-6">
                     <div class="mt-5">
                         <p><strong>Find your published stories: <a href="{{ url_for('blog.user_stories') }}">here</a>.</strong></p>
