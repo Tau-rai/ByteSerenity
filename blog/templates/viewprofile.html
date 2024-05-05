@@ -28,30 +28,30 @@
                 <!-- First column: Profile content -->
                 <div class="col-md-6">
                     <div class="text-center mb-4">
-                        <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-image">
+                        <img src="{{ url_for('static', filename='user.avatar') }}" alt="Profile Picture" class="profile-image">
                     </div>
                     <div class="center-content">
                         <h2 class="mb-4">Profile Information</h2>
-                        <p><strong>Name:</strong> {{ user.name }}</p>
+                        <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
                         <p><strong>Email:</strong> {{ user.email }}</p>
                         <p><strong>Bio:</strong> {{ user.bio }}</p>
                         <p><strong>Interests (optional):</strong></p>
-                        <ul class="list-inline-itemstyled">
+                        <!-- <ul class="list-inline-itemstyled">
                             {% for interest in user.interests %}
                                 <li>{{ interest }}</li>
-                            {% endfor %}
-                        </ul>
-                        <p><strong>Country/Region (optional):</strong> {{ user.country }}</p>
+                            {% endfor %} -->
+                        <!-- </ul>
+                        <p><strong>Country/Region (optional):</strong> {{ user.country }}</p> -->
                     </div>
                 </div>
                 <!-- Column divider -->
                 <div class="col-md-6">
                     <div class="mt-5">
-                        <p><strong>Find your published stories: <a href="{{ url_for('blog.user_stories') }}">here</a>.</strong></p>
-                        <p><strong>Find your drafts: <a href="{{ url_for('blog.drafts') }}">here</a>.</strong></p>
+                        <p><strong>Find your published stories: <a href="#">here</a>.</strong></p>
+                        <p><strong>Find your drafts: <a href="#">here</a>.</strong></p>
                     </div>
                     <div class="mt-5 text-center">
-                        <a href="{{ url_for('profile') }}" class="btn btn-primary edit-profile-btn">Edit Profile</a>
+                        <a href="#" class="btn btn-primary edit-profile-btn">Edit Profile</a>
                     </div>
                 </div>
             </div>

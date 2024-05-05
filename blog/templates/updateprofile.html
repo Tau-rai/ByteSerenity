@@ -7,7 +7,7 @@
     <div class="message">
       Welcome to your ByteSerenity profile!
     </div>
-    <form id="profileForm" action="{{ url_for('blog.profile') }}" method="post">
+    <form id="profileForm" method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label for="fullName">Full Name:</label>
         <input type="text" id="fullName" name="fullName" required>
@@ -34,7 +34,7 @@
         <input type="date" id="dateOfBirth" name="dateOfBirth">
       </div>
       
-      <button type="submit">Update Profile</button>
+      <button type="submit" name="action">Update Profile</button>
     </form>
   </div>
 {% endblock %}

@@ -1,36 +1,35 @@
 {% extends 'base.html' %}
-{% block title %}Write Blog - ByteSerenity{% endblock %}
+
+{% block title %}Write Blog{% endblock %}
 
 {% block content %}
     <div class="container">
         <h2>Write Blog</h2>
-        <form action="{{ url_for('blog.create') }}" method="post">
+        <form  method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title:</label>
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <div class="form-group">
-                <label for="author">Author Name:</label>
-                <input type="text" class="form-control" id="author" name="author" required>
+                <label for="featuredImage">Featured Image:</label>
+                <input type="file" class="form-control-file" id="image" name="image">
             </div>
             <div class="form-group">
-                <label for="category">Category:</label>
-                <select class="form-control" id="category" name="category" required>
-                    {% for category in categories %}
-                        <option value="{{ category }}">{{ category }}</option>
+                <label for="tags">Category:</label>
+                <select class="form-control" id="tags" name="tags">
+                    {% for tag in tags %}
+                        <option value="{{ tag }}">{{ tag }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="form-group">
-                <label for="content">Content:</label>
-                <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
+                <label for="body">Content:</label>
+                <textarea class="form-control" id="body" name="body" rows="15" required></textarea>
             </div>
-            <div class="form-group">
-                <label for="featuredImage">Featured Image:</label>
-                <input type="file" class="form-control-file" id="featuredImage" name="featuredImage">
+            <div class="flex justify-between">
+                <button type="submit" name="action" class="btn btn-primary">Save as Draft</button>
+                <button type="submit" name="action" class="btn btn-success">Publish</button>
             </div>
-            <button type="submit" class="btn btn-primary">Save as Draft</button>
-            <button type="submit" class="btn btn-success">Publish</button>
         </form>
     </div>
 {% endblock %}

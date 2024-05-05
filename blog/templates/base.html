@@ -9,6 +9,8 @@
     <!-- Custom styles -->
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles/css/index.css') }}">
+     <!-- Load an icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -18,10 +20,9 @@
                 <a class="navbar-brand" href="{{ url_for('blog.index') }}">
                     <span class="byte-serenity">ByteSerenity</span>
                 </a>
-                <!-- Load an icon library -->
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-                <a  class="active" href="{{ url_for('blog.search') }}" style="color: white; font-size: 20px;"> <i class="fa fa-fw fa-search" style="color: white; margin-top: 16px; margin-left: 50px;"></i> Search</a>
+                <a  class="active"" href="{{ url_for('blog.search') }}" style="color: white; font-size: 20px;">
+                     <i class="fa fa-fw fa-search" style="color: white; margin-top: 16px; margin-left: 50px;"></i> Search</a>
 
                 <!-- Toggle button for collapsed navigation menu -->
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -37,6 +38,7 @@
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     <li><a href="{{ url_for('blog.profile')}}">{{ g.user.username }}</a></li>
                     {% else %}
+                    <li><a href="{{ url_for('blog.create') }}">Blog</a></li>
                     <li><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                     {% endif %}

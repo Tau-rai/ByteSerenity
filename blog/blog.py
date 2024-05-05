@@ -34,10 +34,13 @@ def index():
 @login_required
 def create():
     """Create a new post"""
+    # Query all tags from the database
+    tags = Tag.query.all()
+
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
-        tags = request.form.getlist('tags')
+        selected_tags = request.form.getlist('tags')
         new_tag_name = request.form.get('newTag')
         image = request.files.get('image')
         action = request.form['action']
@@ -61,31 +64,22 @@ def create():
 
             if image:
                 filename = secure_filename(image.filename)
-                image.save(os.path.join('/home/tau_rai/ByteSerenity/blog/static/public/', filename))
+                image.save(os.path.join('/home/tau_rai/GeekZen/blog/static/public', filename))
                 post.image = 'public/' + filename
 
-            if tags:
-                for tag in tags:
-                    existing_tag = Tag.query.filter_by(name=tag).first()
-                    if not existing_tag:
-                        new_tag = Tag(name=tag)
-                        db.session.add(new_tag)
-                        db.session.commit()
-                        post_tag = PostTag(post_id=post.id, tag_id=new_tag.id)
-                    else:
-                        post_tag = PostTag(post_id=post.id, tag_id=existing_tag.id)
-                    db.session.add(post_tag)
+            if selected_tags:
+                for tag_name in selected_tags:
+                    tag = Tag.query.filter_by(name=tag_name).first()
+                    if tag:
+                        post_tag = PostTag(post_id=post.id, tag_id=tag.id)
+                    else:  # If the tag doesn't exist, create a new one
+                        tag = Tag(name=tag_name)
+                        db.session.add(tag)
+                        db.session.commit()  # Commit the new tag creation
 
-            if new_tag_name:  # Check if 'newTag' field is not empty
-                existing_tag = Tag.query.filter_by(name=new_tag_name).first()
-                if not existing_tag:
-                    new_tag = Tag(name=new_tag_name)
-                    db.session.add(new_tag)
-                    db.session.commit()
-                    post_tag = PostTag(post_id=post.id, tag_id=new_tag.id)
-                else:
-                    post_tag = PostTag(post_id=post.id, tag_id=existing_tag.id)
-                db.session.add(post_tag)
+                    post_tag = PostTag(post_id=post.id, tag_id=tag.id)  # Create the post_tag association
+                    db.session.add(post_tag)  # Add the association to the session
+                db.session.commit()  # Commit the post_tag associations
 
             db.session.commit()
 
@@ -94,7 +88,8 @@ def create():
             else:
                 return redirect(url_for('blog.profile'))
 
-    return render_template('writeblog.html')
+    # Pass the tags to the template
+    return render_template('writeblog.html', tags=tags)
 
 @bp.route('/<int:id>/post_detail', methods=('GET',))
 def post_detail(id):
@@ -174,12 +169,11 @@ def tag(tag_name):
     )
     return render_template('tag.html', posts=posts, tag_name=tag_name)
 
-@login_required
 @bp.route('/<int:id>/delete', methods=('POST',))
+@login_required
 def delete(id):
     """Deletes a post"""
-    post = Post.query.get(id)
-    db.session.delete(post)
+    db.session.query(Post).filter(Post.id == id).delete()
     db.session.commit()
     return redirect(url_for('blog.index'))
 
@@ -225,44 +219,46 @@ def terms_of_service():
 # Regular expression for validating an Email
 email_regex = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
 
-@bp.route('/profile', methods=['GET', 'POST'])
+@bp.route('/profile')
 @login_required
 def profile():
-    """Updates user profile"""
-    user = g.user  # Fetch the current logged-in user object
-    posts = Post.query.filter_by(author_id=user.id, status='published').all()  
-    drafts = Post.query.filter_by(author_id=user.id, status='draft').all()  
-
-    if request.method == 'POST':
-        # Fetch form data
-        user.first_name = request.form.get('first_name')
-        user.last_name = request.form.get('last_name')
-        user.date_of_birth = request.form.get('date_of_birth')
-        user.bio = request.form.get('bio')
-        user.email = request.form.get('email')
-
-        # Fetch profile picture
-        avatar = request.files.get('avatar')
-        if avatar:
-            filename = secure_filename(avatar.filename)
-            avatar.save(os.path.join('/home/tau_rai/try/blogA/static/public', filename))
-            user.avatar = 'public/' + filename  # Update the user's avatar path
-
-        # Validate email format
-        if not re.fullmatch(email_regex, user.email):
-            flash('Invalid email address.')
-        else:
-            # Check if email already exists in the database
-            existing_user = User.query.filter(User.email == user.email, User.id != user.id).first()
-            if existing_user:
-                flash('Email address already in use.')
-            else:
-                try:
-                    # Update user details in the database
-                    db.session.commit()
-                    flash('Profile updated successfully!')
-                except Exception as e:
-                    db.session.rollback()
-                    flash('An error occurred while updating the profile.')
-
+    """Shows user profile"""
+    user = g.user 
+    posts = Post.query.filter_by(author_id=user.id, status='published').all() 
+    drafts = Post.query.filter_by(author_id=user.id, status='draft').all() 
     return render_template('viewprofile.html', user=user, posts=posts, drafts=drafts)
+
+@bp.route('/update_profile', methods=['POST'])
+@login_required
+def update_profile():
+    """Updates user profile"""
+    user = g.user 
+
+    user.first_name = request.form.get('first_name')
+    user.last_name = request.form.get('last_name')
+    user.date_of_birth = request.form.get('date_of_birth')
+    user.bio = request.form.get('bio')
+
+    avatar = request.files.get('avatar')
+    if avatar:
+        filename = secure_filename(avatar.filename)
+        avatar.save(os.path.join('/home/tau_rai/GeekZen/blog/static/public/', filename))
+        user.avatar = 'public/' + filename 
+
+    if user.email and isinstance(user.email, str) and not re.fullmatch(email_regex, user.email):
+        flash('Invalid email address.')
+    else:
+        existing_user = User.query.filter(User.email == user.email, User.id != user.id).first()
+        if existing_user:
+            flash('Email address already in use.')
+        else:
+            try:
+                db.session.commit()
+                flash('Profile updated successfully!')
+            except Exception as e:
+                db.session.rollback()
+                flash('An error occurred while updating the profile.')
+            finally:
+                user = User.query.get(g.user.id)
+
+    return redirect(url_for('blog.profile'))
