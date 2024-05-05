@@ -2,72 +2,21 @@
 {% block title %}Login - ByteSerenity{% endblock %}
 
 {% block content %}
-    <div class="container-sm mt-5">
-        <!-- Animated welcome message -->
-        <div class="row">
-            <div class="col text-center">
-                <h4 class="welcome-message">Welcome back to ByteSerenity</h4>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm" action="{{ url_for('auth.login') }}" method="post">
+            <div class="form-group">
+                <label for="username">Email:</label>
+                <input type="text" class="form-control" id="email" name="email" required>
             </div>
-        </div>
-        
-        <!-- Login form -->
-        <div class="row mt-4">
-            <div class="col-md-6 mx-auto">
-                <h5 class="text-center"> Login and Explore: </h5>
-                <form id="loginForm" action="{{ url_for('auth.login') }}" method="post">
-                    <div class="form-group">
-                        <label for="username">Email:</label>
-                        <input type="email" class="form-control form-control-sm" id="username" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" class="form-control form-control-sm" id="password" name="password" required>
-                    </div>
-                    <div class="forgot-password-container text-center">
-                        <a href="forgot_password.html" class="forgot-password">Forgot Password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-sm btn-block">Login</button>
-                </form>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
             </div>
-        </div>
+            <div class="forgot-password-container">
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
     </div>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <style>
-        .welcome-message {
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-20px);
-            }
-            60% {
-                transform: translateY(-10px);
-            }
-        }
-    </style>
-
-    <!-- Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Perform client-side validation if needed
-
-            // Redirect to landing page
-            window.location.href = "{{ url_for('landing_page') }}";
-        });
-    </script>
 {% endblock %}
-
