@@ -39,21 +39,39 @@
     </section>
 
     <!-- Design: Categories -->
-    <section class="categories container">
-        <h2>Categories</h2>
-        <div class="row">
-            <!-- Dynamic content will be inserted here -->
-            {% for tag in tags %}
-            <div class="col-md-3">
-                <div class="category-box" style="background-color: {{ category.color }};">
-                    <img src="{{ category.image }}" alt="{{ tag.name }} Image" class="category-image">
-                    <h3 class="category-title">{{ category.name }}</h3>
-                    <a href="{{ url_for('blog.tag', id=category.id) }}" class="btn btn-primary">Explore</a>
+  <section>
+    <div class="container">
+        <h2 class="text-center">Categories</h2>
+        <div id="category-carousel" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <div class="row">
+                        {% for tgs in tags %}
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="category-box" style="background-color: {{ category.color }};">
+                                <img src="{{ category.image }}" alt="{{ tag.name }} Image" class="category-image">
+                                <h3 class="category-title">{{ category.name }}</h3>
+                                   <a href="{{ url_for('blog.tag', id=category.id) }}" class="b
+tn btn-primary">Explore</a>
+                                  </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-            {% endfor %}
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#category-carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#category-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-    </section>
+    </div>
+</section> 
 
    <!-- Design 4: Latest Stories and Top Stories -->
 <section class="latest-stories container">
