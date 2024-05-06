@@ -1,103 +1,83 @@
 {% extends 'base.html' %}
 
+{% block header %}
+    <div class="p-4 bg-cover text-white" style="background-image: url('../static/styles/images/Bytelogo.jpeg'); height: 60vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <!-- <h1 class="text-4xl font-bold">Welcome to ByteSerenity!</h1>
+        <p class="mt-4">Code with Clarity, Live with Zen</p> -->
+    </div>
+    <div class="mb-8"></div>
+{% endblock %}
+
 {% block content %}
-
-    <!-- Design: Welcome Message -->
-    <section class="welcome-message">
-        <div class="container">
-            <div class="row">
-                <!-- Welcome Message with Background Picture -->
-                <div class="col-md-9 welcome-message-bg" style="background-image: url('../static/styles/images/background.jpg');">
-                    <div class="welcome-content">
-                        <h1>Welcome to ByteSerenity</h1>
-                        <p>Code with Clarity, Live with Zen</p>
-                    </div>
-                </div>
-                <!-- Trending Stories -->
-                <div class="col-md-3 trending-stories">
-                    <div class="trending-stories-inner">
-                        <h2>Trending Stories</h2>
-                        <div class="trending-stories-scroll">
-                            <!-- Dynamic content will be inserted here -->
-                            {% for story in trending_stories %}
-                            <div class="trending-story">
-                                <div class="trending-story-image">
-                                    <img src="{{ story.image }}" alt="{{ story.title }}" class="img-responsive" width="100" height="100">
-                                </div>
-                                <div class="trending-story-content">
-                                    <h3><a href="{{ story.url }}">{{ story.title }}</a></h3>
-                                    <p>{{ story.summary }}</p>
-                                    <a href="{{ story.url }}" class="read-more">Read More <span>...</span></a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
+    <!-- New section for categories -->
+    <div class="categories-container container mx-auto">
+        <h2 class="one-line text-center mb-4 text-4xl">Topics</h2>
+        <div class="flex flex-col sm:flex-row justify-center">
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4 px-2">
+                <div class="category-box bg-gray-100 p-4 rounded-lg inline-block">
+                    <h3 class="category-title text-3xl">Stress Management</h3>
+                    <img src="../static/styles/images/stress.webp" alt="Health & Wellness" class="category-image">
+                    <a href="{{ url_for('blog.tag', tag_name='health') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Design: Categories -->
-  <section>
-    <div class="container">
-        <h2 class="text-center">Categories</h2>
-        <div id="category-carousel" class="carousel slide" data-ride="carousel">
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <div class="row">
-                        {% for tgs in tags %}
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="category-box" style="background-color: {{ category.color }};">
-                                <img src="{{ category.image }}" alt="{{ tag.name }} Image" class="category-image">
-                                <h3 class="category-title">{{ category.name }}</h3>
-                                   <a href="{{ url_for('blog.tag', id=category.id) }}" class="b
-tn btn-primary">Explore</a>
-                                  </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4 px-2">
+                <div class="category-box bg-gray-200 p-4 rounded-lg inline-block">
+                    <h3 class="category-title text-3xl">Worklife Balance</h3>
+                    <img src="../static/styles/images/work-life.webp" alt="Worklife Balance" class="category-image">
+                    <a href="{{ url_for('blog.tag', tag_name='worklife') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
                 </div>
             </div>
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#category-carousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#category-carousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4 px-2">
+                <div class="category-box bg-gray-300 p-4 rounded-lg inline-block">
+                    <h3 class="category-title text-3xl">Burnout</h3>
+                    <img src="../static/styles/images/burnout.jpg" alt="Burnout" class="category-image">
+                    <a href="{{ url_for('blog.tag', tag_name='burnout') }}" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
+                </div>
+            </div>
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4 px-2">
+                <div class="category-box bg-gray-300 p-4 rounded-lg inline-block">
+                    <h3 class="category-title text-3xl">Mental Health</h3>
+                    <img src="../static/styles/images/mental.jpg" alt="Burnout" class="category-image">
+                    <a href="{{ url_for('blog.tag', tag_name='Mental Health') }}" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
+                </div>
+            </div>
         </div>
     </div>
-</section> 
 
-   <!-- Design 4: Latest Stories and Top Stories -->
-<section class="latest-stories container">
-    <h2>Latest Stories</h2>
-    
-    {% for post in posts %}
-    <div class="row">
-        <!-- Image on the right -->
-        <div class="col-md-3">
-            <div class="top-story">
+    <div class="p-4">
+        <h1 class="text-4xl font-bold text-center my-6">{% block title %}Latest Posts{% endblock %}</h1>
+        {% for post in posts %}
+            <article class="post mb-8 p-6 bg-white rounded-lg shadow-lg relative flex flex-col md:flex-row">
                 {% if post['image'] %}
-                <img src="{{ url_for('static', filename=post.image) }}" alt="Image" class="img-responsive" style="width: 200px; height: 200px;">
+                    <div class="w-full md:w-1/3 relative md:mr-4">
+                        <img src="{{ url_for('static', filename=post.image) }}" alt="Post Image" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
                 {% endif %}
-            </div>
-        </div>
-        <!-- Story on the left -->
-        <div class="col-md-9">
-            <div class="top-story">
-                <h3>{{ post.title }}</h3>
-                <p>{{ post.body|truncate(200) }}</p>
-                <p>Date Published: {{ post.created }}</p>
-                <a href="{{ url_for('blog.post_detail', id=post['id']) }}" class="btn btn-primary">Read More</a>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</section>
- 
+                <div class="w-full md:w-2/3">
+                    <header>
+                        <div class="post-header mb-4">
+                            <h2 class="post-title text-3xl font-semibold">{{ post['title'] }}</h2>
+                            <div class="post-meta text-gray-600">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+                        </div>
+                    </header>
+                    <div class="post-body mt-4 text-gray-800">
+                        <!-- Display a snippet of the post body -->
+                        <p>{{ post['body'] | truncate(200) }}</p>
+                        <!-- Read More link -->
+                        <a href="{{ url_for('blog.post_detail', id=post['id']) }}" class="text-blue-500 hover:text-blue-700">Read More</a>
+                    </div>
+                    {% if g.user['id'] == post['author_id'] %}
+                        <a class="edit-post" href="{{ url_for('blog.update_post', id=post['id']) }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-gray-500 absolute bottom-4 right-4">
+                                <path fill-rule="evenodd" d="M13.879 3.293a1 1 0 011.414 1.414l-10 10a1 1 0 01-.39.242l-3 1a1 1 0 01-1.252-1.253l1-3a1 1 0 01.243-.39l10-10zM13 3l1 1-10 10-1-1 10-10z" clip-rule="evenodd"/>
+                            </svg>
+                        </a>
+                    {% endif %}
+                </div>
+            </article>
+            {% if not loop.last %}
+                <hr class="my-6">
+            {% endif %}
+        {% endfor %}
+    </div>   
 {% endblock %}

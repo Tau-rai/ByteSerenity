@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1 class="text-4xl font-bold text-center my-6">{% block title %}Edit "{{ post['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="max-w-7xl mx-auto p-8 bg-white rounded shadow-md">
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                <input name="title" id="title" value="{{ request.form['title'] or post['title'] }}" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+            </div>
+            <div>
+                <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
+                <textarea name="body" id="body" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" rows="13">{{ request.form['body'] or post['body']}}</textarea>
+            </div>
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+                <input type="file" id="image" name="image">
+            </div>
+            <div class="flex justify-between">
+                <input type="submit" value="Publish" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer" />
+                <button type="button" onclick="if(confirm('Are you sure you want to delete this post?')){document.getElementById('delete-form').submit();}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Delete</button>
+            </div>
+        </form>
+        <form id="delete-form" action="{{ url_for('blog.delete', id=post['id']) }}" method="post" class="hidden">
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+{% endblock %}

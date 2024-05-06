@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1 class="text-4xl font-bold text-center my-6">{% block title %}New Post{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="max-w-8/10 max-h-85 mx-auto p-6 bg-white rounded shadow-md border">
+        <form method="post" class="space-y-4" enctype="multipart/form-data">
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                <input name="title" id="title" value="{{ request.form['title'] }}" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+            </div>
+            <div>
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image">
+            </div> 
+            <div>
+                <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
+                <textarea name="body" id="body" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 resize-y" rows="8">{{ request.form['body'] }}</textarea>
+            </div>
+            <div class="w-1/3">
+                <label for="tags" class="block text-sm font-medium text-gray-700">Topic</label>
+                <select name="tags" id="tags" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
+                    {% for tag in tags %}
+                        <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </select>
+            </div>                              
+            <div id="otherTag" style="display: none;">
+                <label for="newTag">New Tag:</label>
+                <input type="text" id="newTag" name="newTag">
+            </div>
+            <div class="flex justify-between">
+                <input type="submit" name="action" value="Publish" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-pointer" />
+                <input type="submit" name="action" value="Save as Draft" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-pointer" />
+            </div>
+        </form>
+    </div>    
+{% endblock %}

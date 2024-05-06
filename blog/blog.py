@@ -97,7 +97,8 @@ def post_detail(id):
     post = Post.query.get(id)
     comments = Comment.query.filter_by(post_id=id).all()
     tags = [tag.name for tag in post.tags]
-    return render_template('viewblog.html', post=post, comments=comments, tags=tags)
+    like_count = post.like_count
+    return render_template('post_detail.html', post=post, comments=comments, tags=tags, like_count=like_count)
 
 @bp.route('/search')
 def search():
@@ -129,7 +130,7 @@ def search():
 
 @login_required
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
-def update(id):
+def update_post(id):
     """Updates a post"""
     post = Post.query.get(id)
 
@@ -155,7 +156,7 @@ def update(id):
             db.session.commit()
             return redirect(url_for('blog.index'))
 
-    return render_template('update.html', post=post)
+    return render_template('update_post.html', post=post)
 
 @bp.route('/tags/<tag_name>')
 def tag(tag_name):
@@ -203,8 +204,10 @@ def comment(id):
             db.session.commit()
 
             return redirect(url_for('blog.detail', id=id))
+    
+    comments = Comment.query.filter_by(post_id=id).all()
         
-    return render_template('viewcomments.html')
+    return render_template('comments.html', comments=comments)
 
 @bp.route('/privacy-policy')
 def privacy():
@@ -226,7 +229,7 @@ def profile():
     user = g.user 
     posts = Post.query.filter_by(author_id=user.id, status='published').all() 
     drafts = Post.query.filter_by(author_id=user.id, status='draft').all() 
-    return render_template('viewprofile.html', user=user, posts=posts, drafts=drafts)
+    return render_template('profile.html', user=user, posts=posts, drafts=drafts)
 
 @bp.route('/update_profile', methods=['POST'])
 @login_required
@@ -262,3 +265,21 @@ def update_profile():
                 user = User.query.get(g.user.id)
 
     return redirect(url_for('blog.profile'))
+
+@bp.route('/about')
+def about_us():
+    """Shows the site about us section"""
+    return render_template('about_us.html')
+
+@bp.route('/contact-us')
+def contact_us():
+    """Shows the site about us section"""
+    return render_template('contact_us.html')
+
+@bp.route('/like_post/<int:id>', methods=['POST'])
+def like_post(id):
+    """Enables users to like posts"""
+    post = Post.query.get(id)
+    post.like_count += 1
+    db.session.commit()
+    return jsonify({'like_count': post.like_count}) 

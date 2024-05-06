@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Are you sure you want to delete "{{ post['title'] }}"?</h2>
+    <form method="post">
+        <input type="submit" value="Confirm Delete">
+        <!-- Cancel button to go back to the previous page -->
+        <a href="{{ url_for('index') }}" class="button">Cancel</a>
+    </form>
+{% endblock %}

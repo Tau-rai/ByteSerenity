@@ -49,7 +49,7 @@ def create_app(test_config=None):
         SECRET_KEY=secrets.token_hex(16),
         SQLALCHEMY_DATABASE_URI=f'mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@localhost/{DB_NAME}',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        # UPLOAD_FOLDER='/home/tau_rai/ByteSerenity/blog/static/public'  # Set the upload folder path
+        UPLOAD_FOLDER='/home/tau_rai/ByteSerenity/blog/static/public'  # Set the upload folder path
     )
 
     if test_config is None:

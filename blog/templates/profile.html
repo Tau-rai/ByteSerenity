@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1 class="text-4xl font-bold text-center my-6">Profile</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="max-w-7xl mx-auto p-6 bg-white rounded shadow-md grid grid-cols-2 gap-4">
+        <!-- User Profile -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4">{{ user.first_name }} {{ user.last_name }}</h2>
+            <div class="mb-4">
+                {% if user.avatar %}
+                    <img src="{{ url_for('static', filename='public/' + user.avatar) }}" alt="Profile Picture" class="mx-auto mb-4">
+                {% endif %}
+                {% for field, value in {'Username': user.username, 'First Name': user.first_name, 'Last Name': user.last_name, 'Date of Birth': user.date_of_birth, 'Bio': user.bio, 'Email Address': user.email}.items() %}
+                    {% if value %}
+                        <p><strong>{{ field }}:</strong> {{ value }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <form id="edit-profile-form" action="{{ url_for('blog.update_profile') }}" method="post" enctype="multipart/form-data">
+                <button id="edit-profile-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Edit Profile</button>
+                <input type="hidden" name="user_id" value="{{ user.id }}">
+            </form>
+        </div>
+        
+        <!-- Blogs and Drafts -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4">Your Stories</h2>
+
+            <!-- Published Blogs -->
+            <h3 class="text-xl font-bold mb-2">Published</h3>
+            <ul>
+                {% for post in posts %}
+                    <li class="mb-2">
+                        <a href="{{ url_for('blog.post_detail', id=post.id) }}" class="text-blue-500 hover:underline">{{ post.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Drafts -->
+            <div class="mt-4">
+                <h3 class="text-xl font-bold mb-2">Drafts</h3>
+                <ul>
+                    {% for draft in drafts %}
+                        <li class="mb-2">
+                            <a href="{{ url_for('blog.update_post', id=draft.id) }}" class="text-blue-500 hover:underline">{{ draft.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+        <!-- Edit Profile Form -->
+        <div id="edit-profile-form-container" class="max-w-7xl mx-auto p-6 bg-white rounded shadow-md mt-6 hidden">
+            <h2 class="text-2xl font-bold mb-4">Edit Profile</h2>
+            <!-- Display any validation errors or success messages here -->
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-info">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <form id="profile-form" action="{{ url_for('blog.update_profile') }}" method="post" enctype="multipart/form-data">
+                <!-- Display user details for editing -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input name="username" id="username" value="{{ user.username }}" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+                </div>
+                <!-- Add other fields as necessary -->
+                <div>
+                    <label for="profile_picture" class="block text-sm font-medium text-gray-700">Profile Picture</label>
+                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="loadFile(event)">
+                    <!-- Profile Picture Preview -->
+                    {% if user.avatar %}
+                        <img id="profile-picture-preview" src="{{ url_for('static', filename='public/' + user.avatar) }}" alt="Profile Picture Preview" class="hidden mx-auto mt-2 w-32 h-32 rounded-full">
+                    {% else %}
+                        <!-- Handle the case where user.avatar is None -->
+                        <img id="profile-picture-preview" src="{{ url_for('static', filename='styles/images/default_avatar.png') }}" alt="Profile Picture Preview" class="hidden mx-auto mt-2 w-32 h-32 rounded-full">
+                    {% endif %}
+                    <script>
+                        var loadFile = function(event) {
+                            var output = document.getElementById('profile-picture-preview');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            output.style.display = 'block';
+                        };
+                    </script>
+                </div>
+                {% for field in ['first_name', 'last_name', 'bio'] %}
+                <div>
+                    <label for="{{ field }}" class="block text-sm font-medium text-gray-700">{{ field.replace('_', ' ').capitalize() }}</label>
+                    <input name="{{ field }}" id="{{ field }}" value="{{ user[field] }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+                </div>
+            {% endfor %}
+            <div>
+                <label for="date_of_birth" class="block text-sm font-medium text-gray-700">Date of Birth</label>
+                <input type="date" name="date_of_birth" id="date_of_birth" value="{{ user['date_of_birth'] }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
+            </div>           
+
+            <div class="mt-4">
+                <input type="submit" value="Update Details" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer" />
+            </div>
+        </form>
+    </div>
+    <script>
+        var editProfileBtn = document.getElementById('edit-profile-btn');
+        var editProfileForm = document.getElementById('edit-profile-form');
+        editProfileBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            editProfileForm.classList.toggle('hidden');
+            var editProfileFormContainer = document.getElementById('edit-profile-form-container');
+            editProfileFormContainer.classList.toggle('hidden');
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <article class="bg-white p-6 rounded-lg shadow-lg my-6">
+        <!-- Display the title of the post -->
+        <h2 class="text-4xl font-bold mb-2">{{ post.title }}</h2>
+
+        <!-- Display the author avatar and name -->
+        <div class="flex items-center mt-4">
+            {% if post.author.avatar %}
+                <img src="{{ url_for('static', filename=post.author.avatar) }}" alt="{{ post.author.username }}" class="w-16 h-16 rounded-full">
+            {% else %}
+                <img src="{{ url_for('static', filename='styles/images/default_avatar.jpg') }}" alt="Default avatar" class="w-16 h-16 rounded-full">
+            {% endif %}
+            <div class="flex flex-col ml-4">
+                <p class="text-gray-700 text-lg">{{ post.author.first_name }} {{ post.author.last_name }}</p>
+                <p class="text-gray-600 text-sm">Published {{ post.created.strftime('%Y-%m-%d') }}</p>
+            </div>
+        </div>
+        <!-- Display the post image -->
+        {% if post.image %}
+        <img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}" class="w-full object-cover rounded-lg mt-4">
+        {% endif %}
+
+        <!-- Display the post body/content -->
+        <div class="mt-4">
+            <p class="text-gray-700 text-lg mb-4">{{ post.body|nl2br }}</p>
+            <p class="text-gray-600 text-sm">Tags: 
+            {% for tag in post.tags %}
+                <a href="{{ url_for('blog.tag', tag_name=tag.name) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">{{ tag.name }}</a>
+            {% endfor %}
+            </p>
+        </div>
+    </article>
+
+    <!-- Comments remain at the bottom -->
+    <section class="my-8">
+        <h3 class="text-2xl font-bold mb-4">Comments</h3>
+        {% for comment in comments %}
+            <div class="comment bg-gray-100 p-4 rounded-lg mb-4">
+                <p class="text-gray-800 mb-2">{{ comment.body }}</p>
+                <p class="text-gray-600 text-sm">by <span class="font-semibold">{{ comment.author.username }}</span> on {{ comment.created.strftime('%Y-%m-%d') }}</p>
+            </div>
+        {% endfor %}
+    </section>
+
+    <div class="flex justify-between">
+        <a href="{{ url_for('blog.comment', id=post.id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+            <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            Add a comment
+        </a>
+        <button id="like-button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex items-center">
+            <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v10a1 1 0 01-2 0V4a1 1 0 011-1zM5 8a3 3 0 116 0 3 3 0 01-6 0z" clip-rule="evenodd" />
+            </svg>
+            Thumbs Up
+            {% if like_count >= 1 %}
+                <span id="like-count">{{ like_count }}</span>
+            {% endif %}
+        </button>     
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="my-8">
+    <h3 class="text-2xl font-bold mb-4">Comments</h3>
+    {% if comments %}
+        {% for comment in comments %}
+            <div class="comment bg-gray-100 p-4 rounded-lg mb-4">
+                <p class="text-gray-800 mb-2">{{ comment.body }}</p>
+                <p class="text-gray-600 text-sm">by <span class="font-semibold">{{ comment.author.username }}</span> on {{ comment.created.strftime('%Y-%m-%d') }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No comments yet.</p>
+    {% endif %}
+</section>
+<section class="my-8">
+        <form method="post" class="space-y-4">
+            <div class="flex flex-col">
+                <textarea name="body" required class="resize-none w-full h-32 p-4 appearance-none bg-transparent border border-gray-300 outline-none overflow-auto rounded-lg resize-none break-words" style="min-width: 100%;"></textarea>
+            </div>
+            <div class="flex justify-end">
+                <input type="submit" value="Add Comment" class="px-6 py-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg cursor-pointer">
+            </div>
+        </form>
+</section>
+{% endblock %}

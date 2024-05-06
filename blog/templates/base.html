@@ -1,81 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="flex flex-col min-h-screen">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}ByteSerenity{% endblock %}</title>
-    <!-- Bootstrap libraries -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- Custom styles -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles/css/index.css') }}">
-     <!-- Load an icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="{{ url_for('static', filename='scripts/blog.js') }}"></script>
 </head>
-<body>
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <!-- Site icon with Bootstrap styling -->
-                <a class="navbar-brand" href="{{ url_for('blog.index') }}">
-                    <span class="byte-serenity">ByteSerenity</span>
-                </a>
-
-                <a  class="active"" href="{{ url_for('blog.search') }}" style="color: white; font-size: 20px;">
-                     <i class="fa fa-fw fa-search" style="color: white; margin-top: 16px; margin-left: 50px;"></i> Search</a>
-
-                <!-- Toggle button for collapsed navigation menu -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                    {% if g.user %}
-                    <li><a href="{{ url_for('blog.create') }}">Blog</a></li>
-                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-                    <li><a href="{{ url_for('blog.profile')}}">{{ g.user.username }}</a></li>
-                    {% else %}
-                    <li><a href="{{ url_for('blog.create') }}">Blog</a></li>
-                    <li><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
-                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-                    {% endif %}
-                </ul>
-            </div>
+<body class="flex flex-col flex-1 pt-16">
+    <nav class="bg-gray-800 shadow-md fixed w-full top-0 z-10">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="{{ url_for('blog.index') }}" class="text-xl font-semibold text-gray-300 hover:text-gray-200">ByteSerenity</a>
+            <ul class="flex items-center space-x-4">
+                {% if g.user %}
+                    <li class="ml-6">
+                        <a class="text-gray-300 hover:text-gray-200" href="{{ url_for('blog.create') }}">Blog</a>
+                    </li>
+                    <li class="ml-6">
+                        <a href="{{ url_for('blog.profile') }}" class="text-gray-300 hover:text-gray-200">
+                            <span>{{ g.user['username'] }}</span>
+                        </a>
+                    </li>
+                    <li class="ml-6">
+                        <a href="{{ url_for('auth.logout') }}" class="text-gray-300 hover:text-gray-200">Logout</a>
+                    </li>
+                    <li class="ml-6">
+                        <form action="{{ url_for('blog.search') }}" method="get" class="flex">
+                            <input type="text" name="q" placeholder="Search posts..." class="rounded border-gray-300">
+                            <button type="submit" class="bg-gray-300 text-gray-800 rounded ml-2 px-4 py-2">Search</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="ml-6">
+                        <a class="text-gray-300 hover:text-gray-200" href="{{ url_for('blog.create') }}">Blog</a>
+                    </li>
+                    <li class="ml-6">
+                        <a href="{{ url_for('auth.signup') }}" class="text-gray-300 hover:text-gray-200">SignUp</a>
+                    </li>
+                    <li class="ml-6">
+                        <a href="{{ url_for('auth.login') }}" class="text-gray-300 hover:text-gray-200">LogIn</a>
+                    </li>
+                    <li class="ml-6">
+                        <form action="{{ url_for('blog.search') }}" method="get" class="flex">
+                            <input type="text" name="q" placeholder="Search posts..." class="rounded border-gray-300">
+                            <button type="submit" class="bg-gray-300 text-gray-800 rounded ml-2 px-4 py-2">Search</button>
+                        </form>
+                    </li>
+                {% endif %}
+                <!-- Dropdown menu for small screens -->
+                <li class="ml-6 sm:hidden relative">
+                    <button id="menu-toggle" class="text-gray-700 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
+                            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                    <ul id="dropdown-menu" class="hidden absolute top-10 right-0 bg-white border border-gray-300 rounded-lg p-2 space-y-2">
+                        <li><a href="{{ url_for('blog.create') }}" class="text-gray-300 hover:text-gray-200">Write</a></li>
+                        <li><a href="{{ url_for('blog.profile') }}" class="text-gray-300 hover:text-gray-200">{{ g.user['username'] }}</a></li>
+                        <li><a href="{{ url_for('auth.logout') }}" class="text-gray-300 hover:text-gray-200">Logout</a></li>
+                        <li>
+                            <form action="{{ url_for('blog.search') }}" method="get" class="flex">
+                                <input type="text" name="q" placeholder="Search posts..." class="rounded border-gray-300">
+                                <button type="submit" class="bg-blue-500 text-white rounded ml-2 px-4 py-2">Search</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </nav>
-    <div class="container mx-auto px-3 py-3">
+    <section class="container mx-auto px-6 py-8">
         <header>
             {% block header %}{% endblock %}
         </header>
         {% for message in get_flashed_messages() %}
-            <div class="alert alert-danger rounded border border-success text-success px-3 py-2" role="alert">
+            <div class="flash bg-green-300 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
                 {{ message }}
             </div>
         {% endfor %}
         {% block content %}{% endblock %}
-    </div>    
-    <!-- Design: Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <span></span>
-                </div>
-                <div class="col-sm-6 text-right">
-                    <a href="{{ url_for('blog.index') }}">Home</a>
-                    <a href="{{ url_for('blog.privacy') }}">Privacy</a>
-                    <a href="{{ url_for('blog.terms_of_service') }}">Terms of Service</a>
-                </div>
-            </div>
+    </section>
+    <footer class="bg-gray-800 shadow-md mt-auto border-t-2 border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <p class="text-gray-300">© Changamire 2024</p>
+            <ul class="flex items-center">
+                <li class="ml-6">
+                    <a href="{{ url_for('blog.about_us') }}" class="text-gray-300 hover:text-gray-200 mr-4">About</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('blog.contact_us') }}" class="text-gray-300 hover:text-gray-200 mr-4">Contact Us</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('blog.privacy') }}" class="text-gray-300 hover:text-gray-200 mr-4">Privacy</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('blog.terms_of_service') }}" class="text-gray-300 hover:text-gray-200">Terms of Service</a>
+                </li>
+            </ul>
         </div>
-    </footer>
-
-    <!-- Bootstrap and jQuery JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </footer>  
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the menu toggle button and dropdown menu elements
+            var menuToggle = document.getElementById('menu-toggle');
+            var dropdownMenu = document.getElementById('dropdown-menu');
+    
+            // Add a click event listener to the menu toggle button
+            menuToggle.addEventListener('click', function() {
+                // Toggle the 'hidden' class on the dropdown menu
+                dropdownMenu.classList.toggle('hidden');
+            });
+        });
+    </script>   
 </body>
 </html>
-
