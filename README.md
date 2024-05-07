@@ -18,7 +18,7 @@ ByteSerenity is a Flask web application primarily catering to the mental health,
 - **Flask**: Flask is a micro web framework for Python used to develop the application.
 - **MySQL**: MySQL is used as the relational database management system.
 - **HTML/CSS/JavaScript**: Standard web technologies are used for front-end development.
-- **Bootstrap**: Bootstrap is used for styling and layout of the application.
+- **TailwindCSS**: TailwindCSS is used for styling and layout of the application.
 - **Jinja2**: Jinja2 templating engine is used for generating dynamic HTML content.
 - **Werkzeug**: Werkzeug is a WSGI utility library for Python, which is used for routing and handling requests.
 - **Markdown**: Markdown is used for writing README and other documentation files.
@@ -58,7 +58,7 @@ ByteSerenity is a Flask web application primarily catering to the mental health,
 6. Set up environment variables:
 
     ```bash
-    export FLASK_APP=blog
+    export FLASK_APP=app
     export FLASK_ENV=development
     ```
 
@@ -71,7 +71,7 @@ ByteSerenity is a Flask web application primarily catering to the mental health,
 8. Run the application:
 
     ```bash
-    flask --app blog run
+    flask run
     ```
 
 The application should now be accessible at [http://localhost:5000](http://localhost:5000).
