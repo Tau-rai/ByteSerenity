@@ -10,39 +10,43 @@
 
 {% block content %}
     <!-- New section for categories -->
-    <div class="categories-container container mx-auto">
-        <h2 class="one-line text-center mb-4 text-4xl">Topics</h2>
-        <div class="flex flex-col sm:flex-row justify-center">
-            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4 px-2">
-                <div class="category-box bg-gray-100 p-4 rounded-lg inline-block">
-                    <h3 class="category-title text-3xl">Stress Management</h3>
-                    <img src="../static/styles/images/stress.webp" alt="Health & Wellness" class="category-image">
-                    <a href="{{ url_for('blog.tag', tag_name='health') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
-                </div>
+<div class="categories-container container mx-auto">
+    <h2 class="one-line text-center mb-4 text-4xl">Categories</h2>
+    <div class="flex flex-wrap justify-center">
+        <!-- Category 1 -->
+        <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-4 px-2">
+            <div class="category-box bg-gray-100 p-4 rounded-lg inline-block h-full">
+                <h3 class="category-title text-3xl">Stress Management</h3>
+                <img src="../static/styles/images/stress.webp" alt="Health & Wellness" class="category-image w-full object-cover" style="height: 200px;">
+                <a href="{{ url_for('blog.tag', tag_name='health') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
             </div>
-            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4 px-2">
-                <div class="category-box bg-gray-200 p-4 rounded-lg inline-block">
-                    <h3 class="category-title text-3xl">Worklife Balance</h3>
-                    <img src="../static/styles/images/work-life.webp" alt="Worklife Balance" class="category-image">
-                    <a href="{{ url_for('blog.tag', tag_name='worklife') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
-                </div>
+        </div>
+        <!-- Category 2 -->
+        <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-4 px-2">
+            <div class="category-box bg-gray-200 p-4 rounded-lg inline-block h-full">
+                <h3 class="category-title text-3xl">Worklife Balance</h3>
+                <img src="../static/styles/images/work-life.webp" alt="Worklife Balance" class="category-image w-full object-cover" style="height: 200px;">
+                <a href="{{ url_for('blog.tag', tag_name='worklife') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
             </div>
-            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4 px-2">
-                <div class="category-box bg-gray-300 p-4 rounded-lg inline-block">
-                    <h3 class="category-title text-3xl">Burnout</h3>
-                    <img src="../static/styles/images/burnout.jpg" alt="Burnout" class="category-image">
-                    <a href="{{ url_for('blog.tag', tag_name='burnout') }}" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
-                </div>
+        </div>
+        <!-- Category 3 -->
+        <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-4 px-2">
+            <div class="category-box bg-gray-300 p-4 rounded-lg inline-block h-full">
+                <h3 class="category-title text-3xl">Burnout</h3>
+                <img src="../static/styles/images/burnout.jpg" alt="Burnout" class="category-image w-full object-cover" style="height: 200px;">
+                <a href="{{ url_for('blog.tag', tag_name='burnout') }}" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
             </div>
-            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4 px-2">
-                <div class="category-box bg-gray-300 p-4 rounded-lg inline-block">
-                    <h3 class="category-title text-3xl">Mental Health</h3>
-                    <img src="../static/styles/images/mental.jpg" alt="Burnout" class="category-image">
-                    <a href="{{ url_for('blog.tag', tag_name='Mental Health') }}" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
-                </div>
+        </div>
+        <!-- Category 4 -->
+        <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-4 px-2">
+            <div class="category-box bg-gray-300 p-4 rounded-lg inline-block h-full">
+                <h3 class="category-title text-3xl">Mental Health</h3>
+                <img src="../static/styles/images/mental.jpg" alt="Burnout" class="category-image w-full object-cover" style="height: 200px;">
+                <a href="{{ url_for('blog.tag', tag_name='Mental Health') }}" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
             </div>
         </div>
     </div>
+</div>
 
     <div class="p-4">
         <h1 class="text-4xl font-bold text-center my-6">{% block title %}Latest Posts{% endblock %}</h1>

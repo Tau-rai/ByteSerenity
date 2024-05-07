@@ -64,7 +64,7 @@ def create():
 
             if image:
                 filename = secure_filename(image.filename)
-                image.save(os.path.join('/home/tau_rai/GeekZen/blog/static/public', filename))
+                image.save(os.path.join('/home/tau_rai/ByteSerenity/blog/static/public', filename))
                 post.image = 'public/' + filename
 
             if selected_tags:
@@ -89,7 +89,7 @@ def create():
                 return redirect(url_for('blog.profile'))
 
     # Pass the tags to the template
-    return render_template('writeblog.html', tags=tags)
+    return render_template('create.html', tags=tags)
 
 @bp.route('/<int:id>/post_detail', methods=('GET',))
 def post_detail(id):
@@ -245,7 +245,7 @@ def update_profile():
     avatar = request.files.get('avatar')
     if avatar:
         filename = secure_filename(avatar.filename)
-        avatar.save(os.path.join('/home/tau_rai/GeekZen/blog/static/public/', filename))
+        avatar.save(os.path.join('/home/tau_rai/ByteSerenity/blog/static/public/', filename))
         user.avatar = 'public/' + filename 
 
     if user.email and isinstance(user.email, str) and not re.fullmatch(email_regex, user.email):
