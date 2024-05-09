@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <div class="p-4 bg-cover text-white" style="background-image: url('../static/styles/images/Bytelogo.jpeg'); height: 60vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+    <div class="p-4 bg-cover text-white" style="background-image: url('../static/styles/images/bytelog.jpg'); height: 60vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
         <!-- <h1 class="text-4xl font-bold">Welcome to ByteSerenity!</h1>
         <p class="mt-4">Code with Clarity, Live with Zen</p> -->
     </div>
@@ -18,7 +18,7 @@
             <div class="category-box bg-gray-100 p-4 rounded-lg inline-block h-full">
                 <h3 class="category-title text-3xl">Stress Management</h3>
                 <img src="../static/styles/images/stress.webp" alt="Health & Wellness" class="category-image w-full object-cover" style="height: 200px;">
-                <a href="{{ url_for('blog.tag', tag_name='health') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
+                <a href="{{ url_for('blog.tag', tag_name='Stress Management') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
             </div>
         </div>
         <!-- Category 2 -->
@@ -26,7 +26,7 @@
             <div class="category-box bg-gray-200 p-4 rounded-lg inline-block h-full">
                 <h3 class="category-title text-3xl">Worklife Balance</h3>
                 <img src="../static/styles/images/work-life.webp" alt="Worklife Balance" class="category-image w-full object-cover" style="height: 200px;">
-                <a href="{{ url_for('blog.tag', tag_name='worklife') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
+                <a href="{{ url_for('blog.tag', tag_name='Worklife Balance') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
             </div>
         </div>
         <!-- Category 3 -->
@@ -34,7 +34,7 @@
             <div class="category-box bg-gray-300 p-4 rounded-lg inline-block h-full">
                 <h3 class="category-title text-3xl">Burnout</h3>
                 <img src="../static/styles/images/burnout.jpg" alt="Burnout" class="category-image w-full object-cover" style="height: 200px;">
-                <a href="{{ url_for('blog.tag', tag_name='burnout') }}" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
+                <a href="{{ url_for('blog.tag', tag_name='Burnout') }}" class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">Explore</a>
             </div>
         </div>
         <!-- Category 4 -->

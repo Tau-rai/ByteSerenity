@@ -3,6 +3,7 @@ import click
 import os
 from flask import Flask, g
 from flask.cli import with_appcontext
+from flask_mail import Mail
 from markupsafe import Markup
 from .dbase import db
 from .models import Comment, PostTag, Tag, User
@@ -12,6 +13,12 @@ import secrets
 DB_NAME = os.environ.get('DB_NAME')
 DB_USER = os.environ.get('DB_USER')
 DB_PASSWORD = os.environ.get('DB_PASSWORD')
+MAIL_SERVER = os.environ.get('MAIL_SERVER')
+MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
+# Initialize mail
+mail = Mail()
 
 # Custom Jinja filter for converting newline characters to HTML <br> tags
 def nl2br(value):
@@ -49,8 +56,15 @@ def create_app(test_config=None):
         SECRET_KEY=secrets.token_hex(16),
         SQLALCHEMY_DATABASE_URI=f'mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@localhost/{DB_NAME}',
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        UPLOAD_FOLDER='/home/tau_rai/ByteSerenity/blog/static/public'  # Set the upload folder path
+        UPLOAD_FOLDER='/home/tau_rai/ByteSerenity/blog/static/public',  # Upload folder
+        MAIL_SERVER=MAIL_SERVER,
+        MAIL_PORT=587,
+        MAIL_USE_TLS=True,
+        MAIL_USERNAME=MAIL_USERNAME,
+        MAIL_PASSWORD=MAIL_PASSWORD
     )
+    # Initialize mail with flask app
+    mail.init_app(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

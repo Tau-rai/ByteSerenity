@@ -1,13 +1,18 @@
 """This modules has the authorization routes and methods"""
 import functools
 import re
+import os
 from .dbase import db
-from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
+from flask_mail import Message
+from . import mail
 from .models import User
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+s = URLSafeTimedSerializer('Thisisasecret!')
 
 
 @bp.route('/signup', methods=('GET', 'POST'))
@@ -50,7 +55,6 @@ def signup():
 
     return render_template('signup.html')
 
-
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     """Logs in the user"""
@@ -75,6 +79,60 @@ def login():
         flash(error)
         
     return render_template('login.html')
+
+@bp.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'GET':
+        return render_template('forgot_password.html')
+
+    email = request.form.get('email')
+
+    if not email:
+        return jsonify({'message': 'Email is required.'}), 400
+
+    # Verify if the email exists in your database
+    user = db.session.query(User).filter_by(email=email).first()
+
+    if not user:
+        return jsonify({'message': 'Email does not exist.'}), 400
+
+    # If it does, proceed to generate a token and send the email
+    token = s.dumps(email, salt='email-confirm-salt')
+
+    msg = Message('Password Reset Request', sender=os.getenv('MAIL_USERNAME'), recipients=[email])
+    link = url_for('auth.reset_password', token=token, _external=True)
+    msg.body = 'Your link to reset your password is {}'.format(link)
+    mail.send(msg)
+
+    return jsonify({'message': 'Please check your email for a password reset link.'}), 200
+
+@bp.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    try:
+        email = s.loads(token, salt='email-confirm-salt', max_age=3600)
+    except SignatureExpired:
+        return jsonify({'message': 'The password reset link is expired.'}), 400
+
+    user = db.session.query(User).filter_by(email=email).first()
+
+    if user is None:
+        return jsonify({'message': 'Email does not exist.'}), 400
+
+    if request.method == 'GET':
+        return render_template('reset_password.html', email=email, token=token)
+    
+    if request.method == 'POST':
+        new_password = request.form.get('password')
+        if new_password is None:
+            return jsonify({'message': 'Password is required.'}), 400
+
+        hashed_password = generate_password_hash(new_password)
+        user.password = hashed_password
+        db.session.commit()
+
+        # Flash success message and redirect to login page
+        flash('Password has been reset successfully, please login.')
+        return redirect(url_for('auth.login'))
 
 @bp.before_app_request
 def load_logged_in_user():
