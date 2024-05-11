@@ -41,7 +41,6 @@ def create():
         title = request.form['title']
         body = request.form['body']
         selected_tags = request.form.getlist('tags')
-        new_tag_name = request.form.get('newTag')
         image = request.files.get('image')
         action = request.form['action']
         created = datetime.now()
@@ -203,7 +202,7 @@ def comment(id):
             # Commit the session to save the changes in the database
             db.session.commit()
 
-            return redirect(url_for('blog.detail', id=id))
+            return redirect(url_for('blog.post_detail', id=id))
     
     comments = Comment.query.filter_by(post_id=id).all()
         

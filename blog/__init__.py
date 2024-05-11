@@ -61,7 +61,8 @@ def create_app(test_config=None):
         MAIL_PORT=587,
         MAIL_USE_TLS=True,
         MAIL_USERNAME=MAIL_USERNAME,
-        MAIL_PASSWORD=MAIL_PASSWORD
+        MAIL_PASSWORD=MAIL_PASSWORD,
+        SESSION_COOKIE_SECURE=True
     )
     # Initialize mail with flask app
     mail.init_app(app)

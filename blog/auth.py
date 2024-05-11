@@ -131,8 +131,7 @@ def reset_password(token):
         db.session.commit()
 
         # Flash success message and redirect to login page
-        flash('Password has been reset successfully, please login.')
-        return redirect(url_for('auth.login'))
+        return jsonify({'message': 'Password has been reset successfully, please login.'}), 200
 
 @bp.before_app_request
 def load_logged_in_user():
