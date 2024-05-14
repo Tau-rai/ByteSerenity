@@ -17,8 +17,8 @@ class TestAuth(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_register(self):
-        response = self.client.post('/register', data={
+    def test_signup(self):
+        response = self.client.post('/signup', data={
             'username': 'testuser',
             'email': 'test@example.com',
             'password': 'testpassword'
@@ -26,12 +26,12 @@ class TestAuth(unittest.TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertIsNotNone(User.query.filter_by(username='testuser').first())
 
-    def test_register_existing_user(self):
+    def test_signup_existing_user(self):
         existing_user = User(username='existinguser', email='existing@example.com', password='existingpassword')
         db.session.add(existing_user)
         db.session.commit()
 
-        response = self.client.post('/register', data={
+        response = self.client.post('/signup', data={
             'username': 'existinguser',
             'email': 'existing@example.com',
             'password': 'testpassword'

@@ -1,11 +1,12 @@
 $(document).ready(function() {
-    // Toggle the dropdown menu for small screens
-    var menuToggle = document.getElementById("menu-toggle");
-    var dropdownMenu = document.getElementById("dropdown-menu");
+    // // Toggle the dropdown menu for small screens
+    // var menuToggle = document.getElementById("menu-toggle");
+    // var dropdownMenu = document.getElementById("dropdown-menu");
 
-    menuToggle.addEventListener("click", function() {
-        dropdownMenu.classList.toggle("hidden");
-    });
+    // menuToggle.addEventListener("click", function() {
+    //     dropdownMenu.classList.toggle("hidden");
+    // });
+
 
     // Handle the Create Post form submission
     $('#create-post-form').submit(function(event) {
@@ -117,59 +118,4 @@ $(document).ready(function() {
             }
         });
     });
-
-    // // Handle profile form submission with jQuery AJAX
-    // $('#profile-form').submit(function(event) {
-    //     event.preventDefault();
-    
-    //     var firstName = $('#first_name').val().trim();
-    //     var lastName = $('#last_name').val().trim();
-    //     var dateOfBirth = $('#date_of_birth').val().trim();
-    //     var bio = $('#bio').val().trim();
-    //     var email = $('#email').val().trim();
-    //     var profilePicture = $('#profile_picture').prop('files')[0]; // Get the uploaded file
-    
-    //     // Validate email address
-    //     var emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
-    //     if (!emailRegex.test(email)) {
-    //         alert('Please enter a valid email address.');
-    //         return;
-    //     }
-    
-    //     // Prepare data for AJAX request
-    //     var formData = new FormData(); // Use FormData to handle file upload
-    //     formData.append('first_name', firstName);
-    //     formData.append('last_name', lastName);
-    //     formData.append('date_of_birth', dateOfBirth);
-    //     formData.append('bio', bio);
-    //     formData.append('email', email);
-    
-    //     // Append the file to formData only if profilePicture is not undefined
-    //     if (profilePicture) {
-    //         formData.append('profile_picture', profilePicture);
-    //     }
-    
-    //     // Send AJAX request to update profile
-    //     $.ajax({
-    //         url: '/profile',
-    //         type: 'POST',
-    //         processData: false,  // Important for file upload
-    //         contentType: false,  // Important for file upload
-    //         data: formData,
-    //         success: function(response) {
-    //             // Handle successful response
-    //             alert('Profile updated successfully.');
-    //         },
-    //         error: function(xhr, status, error) {
-    //             // Handle error
-    //             alert('An error occurred while updating the profile.');
-    //         }
-    //     });
-    // });
-    
-    // // Script for toggling the edit profile form
-    // $("#edit-profile-btn").click(function() {
-    //     $("#edit-profile-form").toggleClass("hidden");
-    // });   
-
 });

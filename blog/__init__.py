@@ -50,8 +50,18 @@ def init_db_command():
     click.echo('Initialized the database.')
 
 def create_app(test_config=None):
-    # create and configure the app
+    """Create and configure the Flask application.
+
+    Args:
+        test_config (dict, optional): The configuration for the test environment.
+
+    Returns:
+        Flask: The Flask application instance.
+    """
+    # Create and configure the Flask application
     app = Flask(__name__, instance_relative_config=True)
+
+    # Load the default configuration
     app.config.from_mapping(
         SECRET_KEY=secrets.token_hex(16),
         SQLALCHEMY_DATABASE_URI=f'mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@localhost/{DB_NAME}',
@@ -64,17 +74,18 @@ def create_app(test_config=None):
         MAIL_PASSWORD=MAIL_PASSWORD,
         SESSION_COOKIE_SECURE=True
     )
-    # Initialize mail with flask app
+
+    # Initialize mail with the Flask app
     mail.init_app(app)
 
     if test_config is None:
-        # load the instance config, if it exists, when not testing
+        # Load the instance configuration, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
     else:
-        # load the test config if passed in
+        # Load the test configuration if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
+    # Ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -97,3 +108,4 @@ def create_app(test_config=None):
     app.cli.add_command(init_db_command)
 
     return app
+
