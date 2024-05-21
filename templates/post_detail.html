@@ -10,11 +10,17 @@
             {% if post.author.avatar %}
                 <img src="{{ url_for('static', filename=post.author.avatar) }}" alt="{{ post.author.username }}" class="w-16 h-16 rounded-full">
             {% else %}
-                <img src="{{ url_for('static', filename='styles/images/default_avatar.jpg') }}" alt="Default avatar" class="w-16 h-16 rounded-full">
+                <img src="{{ url_for('static', filename='styles/images/face.jpg') }}" alt="Default avatar" class="w-16 h-16 rounded-full">
             {% endif %}
             <div class="flex flex-col ml-4">
-                <p class="text-gray-700 text-lg">{{ post.author.first_name }} {{ post.author.last_name }}</p>
-                <p class="text-gray-600 text-sm">Published {{ post.created.strftime('%Y-%m-%d') }}</p>
+                <p class="text-gray-700 text-lg">
+                    {% if post.author.first_name and post.author.last_name %}
+                      {{ post.author.first_name }} {{ post.author.last_name }}
+                    {% else %}
+                      {{ post.author.username }}
+                    {% endif %}
+                  </p>
+                <p class="text-gray-600 text-sm">Published: {{ post.created.strftime('%Y-%m-%d') }}</p>
             </div>
         </div>
         <!-- Display the post image -->

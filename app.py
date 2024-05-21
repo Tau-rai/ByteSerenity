@@ -1,5 +1,5 @@
 """Initializes the application."""
-from blog import create_app
+from . import create_app
 
 app = create_app()
 

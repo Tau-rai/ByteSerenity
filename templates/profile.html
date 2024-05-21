@@ -8,10 +8,12 @@
     <div class="max-w-7xl mx-auto p-6 bg-white rounded shadow-md grid grid-cols-2 gap-4">
         <!-- User Profile -->
         <div>
-            <h2 class="text-2xl font-bold mb-4">{{ user.first_name }} {{ user.last_name }}</h2>
-            <div class="mb-4">
+            <!-- <h2 class="text-2xl font-bold mb-4">{{ user.first_name }} {{ user.last_name }}</h2> -->
+            <div class="mb-8">
                 {% if user.avatar %}
                     <img src="{{ url_for('static', filename=user.avatar) }}" alt="Profile Picture" class="w-16 h-16 rounded-full">
+                {% else %}
+                    <img src="{{ url_for('static', filename='styles/images/faceless.jpg') }}" alt="Default avatar" class="w-16 h-16 rounded-full">
                 {% endif %}
                 {% for field, value in {'Username': user.username, 'First Name': user.first_name, 'Last Name': user.last_name, 'Date of Birth': user.date_of_birth, 'Bio': user.bio, 'Email': user.email}.items() %}
                     {% if value %}
@@ -77,7 +79,7 @@
                 <img id="profile-picture-preview" src="{{ url_for('static', filename=user.avatar) }}" alt="Profile Picture Preview" class="hidden mx-auto mt-2 w-32 h-32 rounded-full">
             {% else %}
                 <!-- Handle the case where user.avatar is None -->
-                <img id="profile-picture-preview" src="{{ url_for('static', filename='styles/images/default_avatar.png') }}" alt="Profile Picture Preview" class="hidden mx-auto mt-2 w-32 h-32 rounded-full">
+                <img id="profile-picture-preview" src="{{ url_for('static', filename='styles/images/face.jpg') }}" alt="Profile Picture Preview" class="hidden mx-auto mt-2 w-32 h-32 rounded-full">
             {% endif %}
             <script>
                 var loadFile = function(event) {

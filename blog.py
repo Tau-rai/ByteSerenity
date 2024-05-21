@@ -93,7 +93,7 @@ def create():
             # Save the image if provided
             if image:
                 filename = secure_filename(image.filename)
-                image.save(os.path.join('/home/tau_rai/ByteSerenity/blog/static/public', filename))
+                image.save(os.path.join('/home/tau_rai/ByteSerenity/static/public', filename))
                 post.image = 'public/' + filename
 
             # Associate the post with selected tags
@@ -239,7 +239,7 @@ def update_post(id):
             # Update the post with the new data
             if image:
                 filename = secure_filename(image.filename)
-                image.save(os.path.join('/home/tau_rai/ByteSerenity/blog/static/public/', filename))
+                image.save(os.path.join('/home/tau_rai/ByteSerenity/static/public/', filename))
                 post.image = 'public/' + filename
             post.title = title
             post.body = body
@@ -422,7 +422,7 @@ def update_profile():
     avatar = request.files.get('avatar')
     if avatar:
         filename = secure_filename(avatar.filename)
-        avatar.save(os.path.join('/home/tau_rai/ByteSerenity/blog/static/public/', filename))
+        avatar.save(os.path.join('/home/tau_rai/ByteSerenity/static/public/', filename))
         user.avatar = 'public/' + filename 
 
     # Check if the user's email is valid and if there is already a user with the same email

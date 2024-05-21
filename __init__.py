@@ -2,20 +2,14 @@
 import click
 import os
 from flask import Flask, g
+from .config import Config
 from flask.cli import with_appcontext
 from flask_mail import Mail
 from markupsafe import Markup
+import logging
+from logging.handlers import RotatingFileHandler
 from .dbase import db
 from .models import Comment, PostTag, Tag, User
-import secrets
-
-# Database credentials
-DB_NAME = os.environ.get('DB_NAME')
-DB_USER = os.environ.get('DB_USER')
-DB_PASSWORD = os.environ.get('DB_PASSWORD')
-MAIL_SERVER = os.environ.get('MAIL_SERVER')
-MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
 # Initialize mail
 mail = Mail()
@@ -49,11 +43,8 @@ def init_db_command():
     init_db()
     click.echo('Initialized the database.')
 
-def create_app(test_config=None):
+def create_app():
     """Create and configure the Flask application.
-
-    Args:
-        test_config (dict, optional): The configuration for the test environment.
 
     Returns:
         Flask: The Flask application instance.
@@ -62,28 +53,10 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
     # Load the default configuration
-    app.config.from_mapping(
-        SECRET_KEY=secrets.token_hex(16),
-        SQLALCHEMY_DATABASE_URI=f'mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@localhost/{DB_NAME}',
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        UPLOAD_FOLDER='/home/tau_rai/ByteSerenity/blog/static/public',  # Upload folder
-        MAIL_SERVER=MAIL_SERVER,
-        MAIL_PORT=587,
-        MAIL_USE_TLS=True,
-        MAIL_USERNAME=MAIL_USERNAME,
-        MAIL_PASSWORD=MAIL_PASSWORD,
-        SESSION_COOKIE_SECURE=True
-    )
+    app.config.from_object(Config)
 
     # Initialize mail with the Flask app
     mail.init_app(app)
-
-    if test_config is None:
-        # Load the instance configuration, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # Load the test configuration if passed in
-        app.config.from_mapping(test_config)
 
     # Ensure the instance folder exists
     try:
@@ -107,5 +80,17 @@ def create_app(test_config=None):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
 
+    # Configure logging
+    if not app.debug:
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler('logs/geekzen.log', maxBytes=10240, backupCount=10)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+        
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('GeekZen startup')
+    
     return app
-
