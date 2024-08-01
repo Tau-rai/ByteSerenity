@@ -1,5 +1,5 @@
 """This module defines the models for the application"""
-from .dbase import db
+from dbase import db
 from sqlalchemy.sql import func
 
 
