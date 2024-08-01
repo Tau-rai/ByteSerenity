@@ -2,14 +2,14 @@
 import click
 import os
 from flask import Flask, g
-from .config import Config
+from config import Config
 from flask.cli import with_appcontext
 from flask_mail import Mail
 from markupsafe import Markup
 import logging
 from logging.handlers import RotatingFileHandler
-from .dbase import db
-from .models import Comment, PostTag, Tag, User
+from dbase import db
+from models import Comment, PostTag, Tag, User
 
 # Initialize mail
 mail = Mail()
@@ -68,7 +68,7 @@ def create_app():
     db.init_app(app)
 
     # Register blueprints
-    from . import auth, blog
+    import auth, blog
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='blog.index')
