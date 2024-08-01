@@ -7,7 +7,7 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify, current_app as app
 from flask_mail import Message
 from flask_login import login_user, logout_user, login_required, current_user
-from __init__ import mail, login_manager
+from __init__ import mail
 from models import User
 from werkzeug.security import check_password_hash, generate_password_hash
 
