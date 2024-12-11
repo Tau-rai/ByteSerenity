@@ -1,0 +1,13 @@
+# .dockerignore
+__pycache__
+*.pyc
+instance/
+.env
+.env.*
+logs/
+*.log
+.git/
+.gitignore
+tests/
+README.md
+AUTHORS
